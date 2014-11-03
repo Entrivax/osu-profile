@@ -78,7 +78,7 @@ namespace Osu_Profile
                     ArrayList decode = (ArrayList)JSON.JsonDecode(htmlCode);
                     if (decode.Count > 0)
                     {
-                        Hashtable list = (Hashtable)((ArrayList)JSON.JsonDecode(htmlCode))[MainWindow.mode];
+                        Hashtable list = (Hashtable)((ArrayList)JSON.JsonDecode(htmlCode))[0];
                         returnvalue += list["artist"] + " - " + list["title"] + " [" + list["version"] + "]\n";
                         returnvalue += "BPM : " + list["bpm"] + " - AR : " + list["diff_approach"] + " - Stars : " + list["difficultyrating"] + "\n";
                         returnvalue += "Score : " + String.Format(CultureInfo.InvariantCulture, "{0:#,0.########}", int.Parse((String)code["score"])) + " " + parseModes(int.Parse((String)code["enabled_mods"])) + "\n";
@@ -227,10 +227,13 @@ namespace Osu_Profile
                         if (decode.Count > 0)
                         {
                             events = "";
-                            for (int i = 0; i < 10; i++)
+                            int max = 10;
+                            if (decode.Count < 10)
+                                max = decode.Count;
+                            for (int i = 0; i < max; i++)
                             {
                                 Hashtable list = (Hashtable)((ArrayList)JSON.JsonDecode(htmlCode))[i];
-                                if (i != 9)
+                                if (i != max - 1)
                                     events += parseBeatmap(list) + "\n\n";
                                 else
                                     events += parseBeatmap(list);

@@ -205,13 +205,6 @@ namespace Osu_Profile
             }
 
             UpdateRankingControls();
-
-            /* OLD!!
-            try
-            {
-                outputbox.Text = File.ReadAllText("outputconfig.config");
-            }
-            catch (Exception ex) { outputbox.Text = ""; }*/
         }
 
         private void TabControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
