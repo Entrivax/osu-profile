@@ -13,6 +13,8 @@ using System.Diagnostics;
 using System.Windows.Threading;
 using System.Collections.Generic;
 using osu_Profile;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Osu_Profile
 {
@@ -156,24 +158,26 @@ namespace Osu_Profile
         public void start(string user, string apikey)
         {
             osu_player = new Osu_Player(this, user, apikey);
-            rankedbox.Text = osu_player.ranked_score.ToString("#,#", CultureInfo.InvariantCulture);
-            levelbox.Text = osu_player.level.ToString("#,#.####", CultureInfo.InvariantCulture);
-            totalbox.Text = osu_player.total_score.ToString("#,#", CultureInfo.InvariantCulture);
-            rankbox.Text = osu_player.pprank.ToString("#,#", CultureInfo.InvariantCulture);
-            ppbox.Text = osu_player.pp.ToString("#,#.##", CultureInfo.InvariantCulture);
-            accuracybox.Text = osu_player.accuracy.ToString("#,#.#####", CultureInfo.InvariantCulture);
-            levelchangebox.Text = "0";
-            rankedscorechangebox.Text = "0";
-            totalscorechangebox.Text = "0";
-            rankchangebox.Text = "0";
-            ppchangebox.Text = "0";
-            accuracychangebox.Text = "0";
+            if (osu_player.userid != 0) {
+                rankedbox.Text = osu_player.ranked_score.ToString("#,#", CultureInfo.InvariantCulture);
+                levelbox.Text = osu_player.level.ToString("#,#.####", CultureInfo.InvariantCulture);
+                totalbox.Text = osu_player.total_score.ToString("#,#", CultureInfo.InvariantCulture);
+                rankbox.Text = osu_player.pprank.ToString("#,#", CultureInfo.InvariantCulture);
+                ppbox.Text = osu_player.pp.ToString("#,#.##", CultureInfo.InvariantCulture);
+                accuracybox.Text = osu_player.accuracy.ToString("#,#.#####", CultureInfo.InvariantCulture);
+                levelchangebox.Text = "0";
+                rankedscorechangebox.Text = "0";
+                totalscorechangebox.Text = "0";
+                rankchangebox.Text = "0";
+                ppchangebox.Text = "0";
+                accuracychangebox.Text = "0";
 
-            if (!loopthread.IsAlive)
-                loopthread.Start();
+                if (!loopthread.IsAlive)
+                    loopthread.Start();
 
-            if (!loopthread2.IsAlive)
-                loopthread2.Start();
+                if (!loopthread2.IsAlive)
+                    loopthread2.Start();
+            }
         }
 
         private void userbox_KeyUp(object sender, KeyEventArgs e)

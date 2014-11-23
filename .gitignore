@@ -41,3 +41,7 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+#Generated directories
+osu!Profile/osu!Profile/bin/
+osu!Profile/osu!Profile/obj/

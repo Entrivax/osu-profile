@@ -9,6 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.IO;
+using System.Threading;
+using HtmlAgilityPack;
+using System.Windows.Media.Imaging;
 
 namespace Osu_Profile
 {
@@ -33,6 +36,7 @@ namespace Osu_Profile
             this.user = user;
             this.apikey = apikey;
             this.window = window;
+            this.userid = 0;
             MainWindow.config.IniWriteValue("User", "APIkey", apikey);
             
             using (WebClient client = new WebClient())
@@ -59,10 +63,37 @@ namespace Osu_Profile
                         oldpprank = pprank;
                         oldlevel = level;
                         oldaccuracy = accuracy;
+                        new Thread(new ThreadStart((Action)(() => {
+                            HtmlWeb web = new HtmlWeb();
+                            HtmlDocument doc = web.Load("http://osu.ppy.sh/u/"+userid);
+                            var imgs = doc.DocumentNode.Descendants("img");
+                            foreach (var img in imgs)
+                            {
+                                var alt = img.Attributes["alt"];
+                                if (alt != null && alt.Value == "User avatar")
+                                {
+                                    WebClient webClient = new WebClient();
+                                    byte[] data = webClient.DownloadData("http:" + img.Attributes["src"].Value);
+                                    MemoryStream stream = new MemoryStream(data);
+
+                                    BitmapImage image = new BitmapImage();
+                                    image.BeginInit();
+                                    image.StreamSource = stream;
+                                    image.CacheOption = BitmapCacheOption.OnLoad;
+                                    image.EndInit();
+                                    image.Freeze();
+
+                                    window.Dispatcher.Invoke((Action)(() => { ((MainWindow)window).avatar.Source = image; ((MainWindow)window).avatar.Visibility = Visibility.Visible; }));
+                                }
+                            }
+                        }))).Start();
                     }
+                    else
+                        throw new InvalidPlayerException("Invalid player");
                 }
                 catch (WebException e) { Delegate myDelegate = (Action)showCError; window.Dispatcher.Invoke(myDelegate); connected = false; }
                 catch (NullReferenceException e) { Delegate myDelegate = (Action)showIKError; window.Dispatcher.Invoke(myDelegate); connected = false; }
+                catch (InvalidPlayerException e) { Delegate myDelegate = (Action)showPError; window.Dispatcher.Invoke(myDelegate); connected = false; }
                 reconnected = false;
             }
         }
@@ -320,6 +351,7 @@ namespace Osu_Profile
                 }
                 catch (WebException e) { if (!reconnected) { Delegate myDelegate = (Action)showCError; window.Dispatcher.Invoke(myDelegate); } reconnected = false; }
                 catch (NullReferenceException e) { Delegate myDelegate = (Action)showIKError; window.Dispatcher.Invoke(myDelegate); reconnected = false; }
+                catch (InvalidPlayerException e) { Delegate myDelegate = (Action)showPError; window.Dispatcher.Invoke(myDelegate); connected = false; }
             }
         }
 
@@ -332,5 +364,17 @@ namespace Osu_Profile
         {
             MessageBox.Show(window, "Invalid Key!");
         }
+
+        public void showPError()
+        {
+            MessageBox.Show(window, "Invalid player!");
+        }
+    }
+
+    class InvalidPlayerException : Exception
+    {
+        public InvalidPlayerException() : base() { }
+        public InvalidPlayerException(string message) : base(message) { }
+        public InvalidPlayerException(string message, System.Exception inner) : base(message, inner) { }
     }
 }
