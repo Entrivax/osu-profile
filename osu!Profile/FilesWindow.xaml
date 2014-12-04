@@ -1,0 +1,15 @@
+﻿<controls:MetroWindow x:Class="Osu_Profile.FilesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Height="256" Width="300"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        Title="Osu!Profile" WindowStyle="None" ResizeMode="CanMinimize" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" ShowTitleBar="True" ShowIconOnTitleBar="False" Loaded="window1_Loaded" Name="window1" Closed="window1_Closed">
+    <Grid>
+        <Label Content="File Name" Height="28" HorizontalAlignment="Left" Margin="0,12,0,0" Name="label1" VerticalAlignment="Top" />
+        <Label Content="Content" Height="28" HorizontalAlignment="Left" Margin="0,46,0,0" Name="label2" VerticalAlignment="Top" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="69,13,0,0" Name="filebox" VerticalAlignment="Top" Width="197" />
+        <TextBox Height="125" HorizontalAlignment="Left" Margin="69,48,0,0" Name="contentbox" VerticalAlignment="Top" Width="197" AcceptsReturn="True" />
+        <Button Content="Valid" Height="23" HorizontalAlignment="Left" Margin="191,179,0,0" Name="valid" VerticalAlignment="Top" Width="75" Click="valid_Click" />
+        <Button Content="Cancel" Height="23" HorizontalAlignment="Left" Margin="110,179,0,0" Name="cancel" VerticalAlignment="Top" Width="75" Click="cancel_Click" />
+    </Grid>
+</controls:MetroWindow>
