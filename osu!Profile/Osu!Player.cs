@@ -38,7 +38,7 @@ namespace Osu_Profile
             this.window = window;
             this.userid = 0;
             MainWindow.config.IniWriteValue("User", "APIkey", apikey);
-            
+
             using (WebClient client = new WebClient())
             {
                 try
@@ -49,13 +49,21 @@ namespace Osu_Profile
                     if (decode.Count > 0)
                     {
                         Hashtable list = (Hashtable)((ArrayList)JSON.JsonDecode(htmlCode))[0];
-                        userid = int.Parse((String)list["user_id"]);
-                        originranked_score = ranked_score = long.Parse((String)list["ranked_score"]);
-                        origintotal_score = total_score = long.Parse((String)list["total_score"]);
-                        originpprank = pprank = int.Parse((String)list["pp_rank"]);
-                        originlevel = level = float.Parse(((String)list["level"]), CultureInfo.InvariantCulture);
-                        originpp = pp = float.Parse(((String)list["pp_raw"]), CultureInfo.InvariantCulture);
-                        originaccuracy = accuracy = float.Parse(((String)list["accuracy"]), CultureInfo.InvariantCulture);
+                        if (list.ContainsKey("user_id") && list["user_id"] != null)
+                            userid = int.Parse((String)list["user_id"]);
+                        if (list.ContainsKey("ranked_score") && list["ranked_score"] != null)
+                            originranked_score = ranked_score = long.Parse((String)list["ranked_score"]);
+                        if (list.ContainsKey("total_score") && list["total_score"] != null)
+                            origintotal_score = total_score = long.Parse((String)list["total_score"]);
+                        if (list.ContainsKey("pp_rank") && list["pp_rank"] != null)
+                            originpprank = pprank = int.Parse((String)list["pp_rank"]);
+                        if (list.ContainsKey("level") && list["level"] != null)
+                            originlevel = level = float.Parse(((String)list["level"]), CultureInfo.InvariantCulture);
+                        if (list.ContainsKey("pp_raw") && list["pp_raw"] != null)
+                            originpp = pp = float.Parse(((String)list["pp_raw"]), CultureInfo.InvariantCulture);
+                        if (list.ContainsKey("accuracy") && list["accuracy"] != null)
+                            originaccuracy = accuracy = float.Parse(((String)list["accuracy"]), CultureInfo.InvariantCulture);
+
                         oldpp = pp;
                         ppchange = 0;
                         oldscore = total_score;
@@ -63,9 +71,10 @@ namespace Osu_Profile
                         oldpprank = pprank;
                         oldlevel = level;
                         oldaccuracy = accuracy;
-                        new Thread(new ThreadStart((Action)(() => {
+                        new Thread(new ThreadStart((Action)(() =>
+                        {
                             HtmlWeb web = new HtmlWeb();
-                            HtmlDocument doc = web.Load("http://osu.ppy.sh/u/"+userid);
+                            HtmlDocument doc = web.Load("http://osu.ppy.sh/u/" + userid);
                             var imgs = doc.DocumentNode.Descendants("img");
                             foreach (var img in imgs)
                             {
@@ -105,7 +114,7 @@ namespace Osu_Profile
             {
                 try
                 {
-                    String htmlCode = client.DownloadString("https://osu.ppy.sh/api/get_beatmaps?k=" + apikey  + "&b=" + code["beatmap_id"]);
+                    String htmlCode = client.DownloadString("https://osu.ppy.sh/api/get_beatmaps?k=" + apikey + "&b=" + code["beatmap_id"]);
                     ArrayList decode = (ArrayList)JSON.JsonDecode(htmlCode);
                     if (decode.Count > 0)
                     {
@@ -277,82 +286,90 @@ namespace Osu_Profile
         }
         public void update()
         {
-            if(userid > 0 && connected)
-            using (WebClient client = new WebClient())
-            {
-                try
+            if (userid > 0 && connected)
+                using (WebClient client = new WebClient())
                 {
-                    String htmlCode = client.DownloadString("https://osu.ppy.sh/api/get_user?k=" + apikey + "&u=" + userid + "&type=id&m=" + MainWindow.mode);
-                    ArrayList decode = (ArrayList)JSON.JsonDecode(htmlCode);
-                    reconnected = true;
-                    if (decode.Count > 0)
+                    try
                     {
-                        Hashtable list = (Hashtable)((ArrayList)JSON.JsonDecode(htmlCode))[0];
-                        userid = int.Parse((String)list["user_id"]);
-                        ranked_score = long.Parse((String)list["ranked_score"]);
-                        total_score = long.Parse((String)list["total_score"]);
-                        pprank = int.Parse((String)list["pp_rank"]);
-                        level = float.Parse(((String)list["level"]), CultureInfo.InvariantCulture);
-                        pp = float.Parse(((String)list["pp_raw"]), CultureInfo.InvariantCulture);
-                        accuracy = float.Parse(((String)list["accuracy"]), CultureInfo.InvariantCulture);
-                        if (MainWindow.scoremode == 0)
+                        String htmlCode = client.DownloadString("https://osu.ppy.sh/api/get_user?k=" + apikey + "&u=" + userid + "&type=id&m=" + MainWindow.mode);
+                        ArrayList decode = (ArrayList)JSON.JsonDecode(htmlCode);
+                        reconnected = true;
+                        if (decode.Count > 0)
                         {
-                            if (total_score != oldscore)
+                            Hashtable list = (Hashtable)((ArrayList)JSON.JsonDecode(htmlCode))[0];
+                            if (list.ContainsKey("user_id") && list["user_id"] != null)
+                                userid = int.Parse((String)list["user_id"]);
+                            if (list.ContainsKey("ranked_score") && list["ranked_score"] != null)
+                                ranked_score = long.Parse((String)list["ranked_score"]);
+                            if (list.ContainsKey("total_score") && list["total_score"] != null)
+                                total_score = long.Parse((String)list["total_score"]);
+                            if (list.ContainsKey("pp_rank") && list["pp_rank"] != null)
+                                pprank = int.Parse((String)list["pp_rank"]);
+                            if (list.ContainsKey("level") && list["level"] != null)
+                                level = float.Parse(((String)list["level"]), CultureInfo.InvariantCulture);
+                            if (list.ContainsKey("pp_raw") && list["pp_raw"] != null)
+                                pp = float.Parse(((String)list["pp_raw"]), CultureInfo.InvariantCulture);
+                            if (list.ContainsKey("accuracy") && list["accuracy"] != null)
+                                accuracy = float.Parse(((String)list["accuracy"]), CultureInfo.InvariantCulture);
+
+                            if (MainWindow.scoremode == 0)
                             {
-                                scorechange = total_score - oldscore;
-                                ranked_scorechange = ranked_score - oldranked_score;
-                                pprankchange = pprank - oldpprank;
+                                if (total_score != oldscore)
+                                {
+                                    scorechange = total_score - oldscore;
+                                    ranked_scorechange = ranked_score - oldranked_score;
+                                    pprankchange = pprank - oldpprank;
 
-                                int temp = (int)(accuracy * 100000);
-                                int temp2 = (int)(oldaccuracy * 100000);
-                                int temp3 = temp - temp2;
-                                accuracychange = temp3/100000f;
+                                    int temp = (int)(accuracy * 100000);
+                                    int temp2 = (int)(oldaccuracy * 100000);
+                                    int temp3 = temp - temp2;
+                                    accuracychange = temp3 / 100000f;
 
-                                temp = (int)(level * 10000);
-                                temp2 = (int)(oldlevel * 10000);
-                                temp3 = temp - temp2;
-                                levelchange = temp3 / 10000f;
+                                    temp = (int)(level * 10000);
+                                    temp2 = (int)(oldlevel * 10000);
+                                    temp3 = temp - temp2;
+                                    levelchange = temp3 / 10000f;
 
-                                temp = (int)(pp * 100);
-                                temp2 = (int)(oldpp * 100);
-                                temp3 = temp - temp2;
-                                ppchange = temp3 / 100f;
+                                    temp = (int)(pp * 100);
+                                    temp2 = (int)(oldpp * 100);
+                                    temp3 = temp - temp2;
+                                    ppchange = temp3 / 100f;
 
 
-                                oldpp = pp;
-                                oldscore = total_score;
-                                oldranked_score = ranked_score;
-                                oldpprank = pprank;
-                                oldlevel = level;
-                                oldaccuracy = accuracy;
+                                    oldpp = pp;
+                                    oldscore = total_score;
+                                    oldranked_score = ranked_score;
+                                    oldpprank = pprank;
+                                    oldlevel = level;
+                                    oldaccuracy = accuracy;
+                                }
                             }
-                        }
-                        else if (MainWindow.scoremode == 1)
-                        {
-                            ppchange = pp - originpp;
-                            scorechange = total_score - origintotal_score;
-                            ranked_scorechange = ranked_score - originranked_score;
-                            pprankchange = pprank - originpprank;
-                            levelchange = level - originlevel;
-                            accuracychange = accuracy - originaccuracy;
-
-                            if (total_score != oldscore)
+                            else if (MainWindow.scoremode == 1)
                             {
-                                oldpp = pp;
-                                oldscore = total_score;
-                                oldranked_score = ranked_score;
-                                oldpprank = pprank;
-                                oldlevel = level;
-                                oldaccuracy = accuracy;
-                            }
-                        }
+                                ppchange = pp - originpp;
+                                scorechange = total_score - origintotal_score;
+                                ranked_scorechange = ranked_score - originranked_score;
+                                pprankchange = pprank - originpprank;
+                                levelchange = level - originlevel;
+                                accuracychange = accuracy - originaccuracy;
 
+                                if (total_score != oldscore)
+                                {
+                                    oldpp = pp;
+                                    oldscore = total_score;
+                                    oldranked_score = ranked_score;
+                                    oldpprank = pprank;
+                                    oldlevel = level;
+                                    oldaccuracy = accuracy;
+                                }
+                            }
+
+                        }
                     }
+                    catch (WebException e) { if (!reconnected) { Delegate myDelegate = (Action)showCError; window.Dispatcher.Invoke(myDelegate); } reconnected = false; }
+                    catch (NullReferenceException e) { Delegate myDelegate = (Action)showIKError; window.Dispatcher.Invoke(myDelegate); reconnected = false; }
+                    catch (InvalidPlayerException e) { Delegate myDelegate = (Action)showPError; window.Dispatcher.Invoke(myDelegate); connected = false; }
                 }
-                catch (WebException e) { if (!reconnected) { Delegate myDelegate = (Action)showCError; window.Dispatcher.Invoke(myDelegate); } reconnected = false; }
-                catch (NullReferenceException e) { Delegate myDelegate = (Action)showIKError; window.Dispatcher.Invoke(myDelegate); reconnected = false; }
-                catch (InvalidPlayerException e) { Delegate myDelegate = (Action)showPError; window.Dispatcher.Invoke(myDelegate); connected = false; }
-            }
         }
 
         public void showCError()
