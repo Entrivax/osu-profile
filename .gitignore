@@ -1,4 +1,6 @@
 /.project
+/osu!Profile/bin/
+/osu!Profile/obj/
 
 # Windows image file caches
 Thumbs.db
