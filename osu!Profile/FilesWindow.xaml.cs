@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using MahApps.Metro.Controls;
 
 namespace Osu_Profile
 {
@@ -42,10 +33,12 @@ namespace Osu_Profile
 
             contentbox.ToolTip = "[/rs] for ranked score" + Environment.NewLine + "[/ts] for total score" + Environment.NewLine
                 + "[/l] for level" + Environment.NewLine + "[/r] for performance rank" + Environment.NewLine
-                + "[/pp] for PP" + Environment.NewLine + "[/a] for accuracy" + Environment.NewLine + Environment.NewLine
+                + "[/pp] for PP" + Environment.NewLine + "[/a] for accuracy" + Environment.NewLine + "[/pc] for play count"
+                + Environment.NewLine + Environment.NewLine
                 + "[/rsc] for ranked score difference" + Environment.NewLine + "[/tsc] for total score difference" + Environment.NewLine
                 + "[/lc] for level difference" + Environment.NewLine + "[/rc] for performance rank difference" + Environment.NewLine
-                + "[/ppc] for PP difference" + Environment.NewLine + "[/ac] for accuracy difference";
+                + "[/ppc] for PP difference" + Environment.NewLine + "[/ac] for accuracy difference" + Environment.NewLine
+                + "[/pcc] for play count difference";
         }
 
         private void valid_Click(object sender, RoutedEventArgs e)

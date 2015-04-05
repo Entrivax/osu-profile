@@ -1,18 +1,6 @@
 ﻿using MahApps.Metro.Controls;
 using Osu_Profile;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace osu_Profile
 {
@@ -31,6 +19,7 @@ namespace osu_Profile
             rank.IsChecked = MainWindow.config.IniReadValue("User", "rankbox", "true") == "true";
             pp.IsChecked = MainWindow.config.IniReadValue("User", "ppbox", "true") == "true";
             accu.IsChecked = MainWindow.config.IniReadValue("User", "accubox", "true") == "true";
+            playcount.IsChecked = MainWindow.config.IniReadValue("User", "playcountbox", "true") == "true";
         }
 
         private void valid_Click(object sender, RoutedEventArgs e)
@@ -102,6 +91,16 @@ namespace osu_Profile
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             ((MainWindow)this.Owner).UpdateRankingControls();
+        }
+
+        private void playcount_Checked(object sender, RoutedEventArgs e)
+        {
+            MainWindow.config.IniWriteValue("User", "playcountbox", "true");
+        }
+
+        private void playcount_Unchecked(object sender, RoutedEventArgs e)
+        {
+            MainWindow.config.IniWriteValue("User", "playcountbox", "false");
         }
     }
 }

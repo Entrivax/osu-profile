@@ -1,77 +1,75 @@
-﻿<controls:MetroWindow x:Class="Osu_Profile.MainWindow"
+﻿<Controls:MetroWindow x:Class="Osu_Profile.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        Title="Osu!Profile" WindowStyle="None" ResizeMode="CanMinimize" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" SizeToContent="WidthAndHeight" ShowTitleBar="True" ShowIconOnTitleBar="False" Loaded="MetroWindow_Loaded" Name="window" Height="403">
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:OP="clr-namespace:osu_Profile"
+        Title="Osu!Profile" WindowStyle="None" ResizeMode="CanMinimize" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" ShowTitleBar="True" ShowIconOnTitleBar="False" Loaded="MetroWindow_Loaded" Name="window" Height="288" Width="413">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
 
     <Grid Margin="10">
-        <TabControl Width="341" SelectionChanged="TabControl_SelectionChanged" Name="tab">
-            <TabItem Header="Ranking">
-                <Canvas HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top">
-                    <Label x:Name="levelLab" Content="Level" Canvas.Left="-14" Canvas.Top="-1" />
-                    <TextBox x:Name="levelbox" Height="23" Canvas.Left="107" TextWrapping="Wrap" Text="" Width="115" AllowDrop="False" Focusable="False" IsEnabled="True" TextAlignment="Right" Canvas.Top="0" IsReadOnly="True" />
-                    <Label x:Name="rscoreLab" Content="Ranked Score" Canvas.Top="30" Canvas.Left="-14" />
-                    <TextBox x:Name="rankedbox" Height="23" Canvas.Left="107" TextWrapping="Wrap" Text="" Canvas.Top="31" Width="115" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Right" IsReadOnly="True" />
-                    <Label x:Name="tscoreLab" Content="Total Score" Canvas.Top="61" Canvas.Left="-14" />
-                    <TextBox x:Name="totalbox" Height="23" Canvas.Left="107" TextWrapping="Wrap" Text="" Canvas.Top="62" Width="115" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Right" IsReadOnly="True" />
-                    <Label x:Name="rankLab" Content="Performance Rank" Canvas.Top="92" Canvas.Left="-14" />
-                    <TextBox x:Name="rankbox" Height="23" Canvas.Left="107" TextWrapping="Wrap" Text="" Canvas.Top="93" Width="116" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Right" IsReadOnly="True" />
-                    <Label x:Name="ppLab" Content="PP" Canvas.Top="123" Canvas.Left="-14" />
-                    <TextBox x:Name="ppbox" Height="23" Canvas.Left="107" TextWrapping="Wrap" Text="" Canvas.Top="124" Width="115" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Right" IsReadOnly="True" />
-                    <TextBox x:Name="ppchangebox" Height="23" Canvas.Left="227" TextWrapping="Wrap" Text="" Canvas.Top="124" Width="100" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Left" IsReadOnly="True" />
-                    <Label x:Name="accuLab" Content="Accuracy" Canvas.Top="154" Canvas.Left="-14" />
-                    <TextBox x:Name="accuracybox" Height="23" Canvas.Left="107" TextWrapping="Wrap" Text="" Canvas.Top="155" Width="115" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Right" IsReadOnly="True" />
-                    <TextBox x:Name="rankchangebox" Height="23" Canvas.Left="227" TextWrapping="Wrap" Text="" Canvas.Top="93" Width="100" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Left" IsReadOnly="True" />
-                    <TextBox x:Name="levelchangebox" Height="23" Canvas.Left="227" TextWrapping="Wrap" Text="" Width="100" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Left" Canvas.Top="0" IsReadOnly="True" />
-                    <TextBox x:Name="rankedscorechangebox" Height="23" Canvas.Left="227" TextWrapping="Wrap" Text="" Canvas.Top="31" Width="100" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Left" IsReadOnly="True" />
-                    <TextBox x:Name="totalscorechangebox" Height="23" Canvas.Left="227" TextWrapping="Wrap" Text="" Canvas.Top="62" Width="100" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Left" IsReadOnly="True" />
-                    <TextBox x:Name="accuracychangebox" Height="23" Canvas.Right="-327" TextWrapping="Wrap" Text="" Canvas.Top="155" Width="100" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Left" IsReadOnly="True" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TabControl SelectionChanged="TabControl_SelectionChanged" Name="tab" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <TabItem Header="Ranking" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Canvas HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top">
+                    <Label x:Name="levelLab" Content="Level" Canvas.Left="0" Canvas.Top="14" />
+                    <TextBox x:Name="levelbox" Height="23" Canvas.Left="112" TextWrapping="Wrap" Text="" Width="162" AllowDrop="False" Focusable="False" IsEnabled="True" TextAlignment="Right" IsReadOnly="True" Canvas.Top="14" />
+                    <Label x:Name="rscoreLab" Content="Ranked Score" Canvas.Top="45" Canvas.Left="0" />
+                    <TextBox x:Name="rankedbox" Height="23" Canvas.Left="112" TextWrapping="Wrap" Text="" Canvas.Top="45" Width="162" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Right" IsReadOnly="True" />
+                    <Label x:Name="tscoreLab" Content="Total Score" Canvas.Top="76" Canvas.Left="0" />
+                    <TextBox x:Name="totalbox" Height="23" Canvas.Left="112" TextWrapping="Wrap" Text="" Canvas.Top="76" Width="162" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Right" IsReadOnly="True" />
+                    <Label x:Name="rankLab" Content="Performance Rank" Canvas.Top="107" Canvas.Left="0" />
+                    <TextBox x:Name="rankbox" Height="23" Canvas.Left="112" TextWrapping="Wrap" Text="" Canvas.Top="107" Width="162" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Right" IsReadOnly="True" />
+                    <Label x:Name="ppLab" Content="PP" Canvas.Top="138" Canvas.Left="0" />
+                    <TextBox x:Name="ppbox" Height="23" Canvas.Left="112" TextWrapping="Wrap" Text="" Canvas.Top="138" Width="162" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Right" IsReadOnly="True" />
+                    <TextBox x:Name="ppchangebox" Height="23" Canvas.Left="279" TextWrapping="Wrap" Text="" Canvas.Top="138" Width="100" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Left" IsReadOnly="True" />
+                    <Label x:Name="accuLab" Content="Accuracy" Canvas.Top="169" Canvas.Left="0" />
+                    <TextBox x:Name="accuracybox" Height="23" Canvas.Left="112" TextWrapping="Wrap" Text="" Canvas.Top="169" Width="162" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Right" IsReadOnly="True" />
+                    <TextBox x:Name="rankchangebox" Height="23" Canvas.Left="279" TextWrapping="Wrap" Text="" Canvas.Top="107" Width="100" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Left" IsReadOnly="True" />
+                    <TextBox x:Name="levelchangebox" Height="23" Canvas.Left="279" TextWrapping="Wrap" Text="" Width="100" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Left" IsReadOnly="True" Canvas.Top="14" />
+                    <TextBox x:Name="rankedscorechangebox" Height="23" Canvas.Left="279" TextWrapping="Wrap" Text="" Canvas.Top="45" Width="100" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Left" IsReadOnly="True" />
+                    <TextBox x:Name="totalscorechangebox" Height="23" Canvas.Left="279" TextWrapping="Wrap" Text="" Canvas.Top="76" Width="100" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Left" IsReadOnly="True" />
+                    <TextBox x:Name="accuracychangebox" Height="23" Canvas.Right="-327" TextWrapping="Wrap" Text="" Canvas.Top="169" Width="100" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Left" IsReadOnly="True" Canvas.Left="279" />
+                    <Label x:Name="playcountLab" Content="Play Count" Canvas.Top="200" Canvas.Left="0" />
+                    <TextBox x:Name="playcountbox" Height="23" Canvas.Left="112" TextWrapping="Wrap" Text="" Canvas.Top="200" Width="162" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Right" IsReadOnly="True" />
+                    <TextBox x:Name="playcountchangebox" Height="23" Canvas.Right="-327" TextWrapping="Wrap" Text="" Canvas.Top="200" Width="100" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Left" IsReadOnly="True" Canvas.Left="279" />
                 </Canvas>
             </TabItem>
-            <TabItem Header="Play">
-                <Canvas HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top">
-                    <Label Content="Last played beatmaps" Canvas.Left="-14" Canvas.Top="-1" />
-                    <TextBox x:Name="playedbox" Height="150" Canvas.Left="-15" TextWrapping="Wrap" Text="" Width="341" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Left" Canvas.Top="31" IsReadOnly="True" />
-                    <CheckBox Canvas.Left="260" Canvas.Top="3" Content="Enabled" Height="18" Name="beatmapscheck" FlowDirection="RightToLeft" Checked="beatmapscheck_Checked" Unchecked="beatmapscheck_Unchecked" />
+            <TabItem Header="Play" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Canvas Margin="0,0,387,179">
+                    <Label Content="Last played beatmaps" Canvas.Left="0" Canvas.Top="0" />
+                    <TextBox x:Name="playedbox" Height="153" Canvas.Left="0" Canvas.Right="0" Canvas.Bottom="0" Width="378" IsEnabled="True" AllowDrop="False" Focusable="False" Canvas.Top="26" IsReadOnly="True" />
+                    <CheckBox Canvas.Top="4" Content="Enabled" Canvas.Right="0" Height="18" Name="beatmapscheck" FlowDirection="RightToLeft" Checked="beatmapscheck_Checked" Unchecked="beatmapscheck_Unchecked" Canvas.Left="312" HorizontalAlignment="Right" />
                 </Canvas>
-            </TabItem>
-            <TabItem Header="Settings">
-                <Grid Background="{Binding}">
-                    <TextBox x:Name="userbox" Height="23" Margin="64,10,62,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.48,0.53" KeyUp="userbox_KeyUp"/>
-                    <Label Content="User" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,9,0,0" RenderTransformOrigin="0.706,0.692"/>
-                    <Button x:Name="button" Content="Check" Margin="0,10,0,0" VerticalAlignment="Top" Click="Button_Click" Background="{x:Null}" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="57"/>
-                    <Label Content="API key" HorizontalAlignment="Left" Margin="0,40,0,0" VerticalAlignment="Top"/>
-                    <PasswordBox x:Name="apibox" Margin="64,41,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="versiontext" Content="Version" HorizontalAlignment="Left" Margin="7,0,0,-10" VerticalAlignment="Bottom"/>
-                    <Label Content="O!P by Entrivax" HorizontalAlignment="Right" Margin="0,0,0,5" VerticalAlignment="Bottom"/>
-                    <Label Content="osu! by peppy" HorizontalAlignment="Right" Margin="0,0,0,-10" VerticalAlignment="Bottom"/>
-                    <TextBlock Height="18" HorizontalAlignment="Left" Margin="6,71,0,0" Text="Files" VerticalAlignment="Top" Width="56" TextWrapping="Wrap" />
-                    <StackPanel Orientation="Horizontal" Height="36" Width="105" Margin="231,164,-5,0" VerticalAlignment="Top">
-                        <TextBox x:Name="txtNum" x:FieldModifier="private" Margin="5,5,0,5" Width="50" Text="0" TextChanged="txtNum_TextChanged" IsReadOnly="False" />
-                        <Button x:Name="cmdUp" x:FieldModifier="private" Margin="5,5,0,5" Content="˄" Width="20" Click="cmdUp_Click" />
-                        <Button x:Name="cmdDown" x:FieldModifier="private" Margin="0,5,0,5"  Content="˅" Width="20" Click="cmdDown_Click" />
-                    </StackPanel>
-                    <Label Content="Time to wait after updating (s)" Height="28" HorizontalAlignment="Left" Margin="64,168,0,0" Name="label1" VerticalAlignment="Top" />
-                    <ComboBox Height="23" Margin="64,206,0,0" Name="modelist" VerticalAlignment="Top" SelectionChanged="modelist_SelectionChanged" Loaded="modelist_Loaded">
-                        <ComboBoxItem Content="osu!" />
-                        <ComboBoxItem Content="Taiko" />
-                        <ComboBoxItem Content="Catch the Beat" />
-                        <ComboBoxItem Content="osu!mania" />
-                    </ComboBox>
-                    <Label Content="Mode" Height="28" HorizontalAlignment="Left" Margin="6,209,0,0" VerticalAlignment="Top" />
-                    <ListBox Height="85" Margin="64,73,62,0" Name="filelist" VerticalAlignment="Top" BorderThickness="1" BorderBrush="#FFCCCCCC" />
-                    <Button Content="Add" Height="23" Margin="0,73,0,0" Name="add" VerticalAlignment="Top" Click="add_Click" HorizontalAlignment="Right" Width="57" />
-                    <Button Content="Edit" Height="23" Margin="0,103,0,0" Name="edit" VerticalAlignment="Top" Click="edit_Click" HorizontalAlignment="Right" Width="57" />
-                    <Button Content="Remove" Height="23" Margin="0,133,0,0" Name="remove" VerticalAlignment="Top" Click="remove_Click" HorizontalAlignment="Right" Width="57" />
-                    <ComboBox Height="23" Margin="64,238,0,0" Name="scoremodelist" VerticalAlignment="Top" SelectionChanged="scoremodelist_SelectionChanged" Loaded="scoremodelist_Loaded">
-                        <ComboBoxItem Content="Each game" />
-                        <ComboBoxItem Content="This session" />
-                    </ComboBox>
-                    <Label Content="Score" Height="28" HorizontalAlignment="Left" Margin="6,241,0,0" VerticalAlignment="Top" />
-                    <Button x:Name="rankingButton" Content="Ranking panel elements" Margin="0,269,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="152" Click="rankingButton_Click"/>
-                </Grid>
             </TabItem>
         </TabControl>
-        <Image x:Name="avatar" Height="48" VerticalAlignment="Top" HorizontalAlignment="Right" Width="48" Visibility="Hidden"/>
+
+        <Button Margin="0" Style="{DynamicResource MetroCircleButtonStyle}" Height="38" Click="Button_Click_1" HorizontalAlignment="Right" VerticalAlignment="Top" Width="38" Grid.ColumnSpan="2">
+            <Rectangle StrokeThickness="0" Width="20" Height="20">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource appbar_settings}" />
+                </Rectangle.Fill>
+            </Rectangle>
+        </Button>
+        <Image x:Name="avatar" Height="48" VerticalAlignment="Top" HorizontalAlignment="Right" Width="48" Margin="0,0,43,0"/>
     </Grid>
-</controls:MetroWindow>
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout x:Name="Options" Header="Settings" Position="Right" Width="413" ScrollViewer.CanContentScroll="True" Theme="Adapt">
+                <Grid Margin="0">
+                    <ScrollViewer>
+                        <OP:Settings x:Name="settingsPanel" Width="382"/>
+                    </ScrollViewer>
+                </Grid>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+</Controls:MetroWindow>
