@@ -33,12 +33,13 @@ namespace Osu_Profile
 
             contentbox.ToolTip = "[/rs] for ranked score" + Environment.NewLine + "[/ts] for total score" + Environment.NewLine
                 + "[/l] for level" + Environment.NewLine + "[/r] for performance rank" + Environment.NewLine
-                + "[/pp] for PP" + Environment.NewLine + "[/a] for accuracy" + Environment.NewLine + "[/pc] for play count"
+                + "[/pp] for PP" + Environment.NewLine + "[/a] for accuracy" + Environment.NewLine + "[/pc] for play count" + Environment.NewLine
+                + "[/toppp] for the top PP"
                 + Environment.NewLine + Environment.NewLine
                 + "[/rsc] for ranked score difference" + Environment.NewLine + "[/tsc] for total score difference" + Environment.NewLine
                 + "[/lc] for level difference" + Environment.NewLine + "[/rc] for performance rank difference" + Environment.NewLine
                 + "[/ppc] for PP difference" + Environment.NewLine + "[/ac] for accuracy difference" + Environment.NewLine
-                + "[/pcc] for play count difference";
+                + "[/pcc] for play count difference" + Environment.NewLine + "[/topppc] for the top PP difference";
         }
 
         private void valid_Click(object sender, RoutedEventArgs e)

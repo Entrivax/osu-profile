@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>MahApps.Metro</id>
+    <version>1.1.2.0</version>
+    <title>MahApps.Metro</title>
+    <authors>Paul Jenkins; Jake Ginnivan; Brendan Forster (shiftkey); Alex Mitchell (Amrykid); Dennis Daume (flagbug); Jan Karger (punker76)</authors>
+    <owners>Paul Jenkins; Jake Ginnivan; Brendan Forster (shiftkey); Alex Mitchell (Amrykid); Dennis Daume (flagbug); Jan Karger (punker76)</owners>
+    <licenseUrl>http://www.opensource.org/licenses/MS-PL</licenseUrl>
+    <projectUrl>https://github.com/MahApps/MahApps.Metro</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/MahApps/MahApps.Metro/master/mahapps.metro.logo2.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The goal of MahApps.Metro is to allow devs to quickly and easily cobble together a "Metro" or "Modern UI" for their WPF4+ apps, with minimal effort.</description>
+    <summary>The goal of MahApps.Metro is to allow devs to quickly and easily cobble together a "Metro" or "Modern UI" for their WPF4+ apps, with minimal effort.</summary>
+    <releaseNotes># Notes
+
+This is a bug fix release of MahApps.Metro.
+
+# Bugfixes / Changes
+
+- Added alignment properties for `MetroDataGridRowHeader` style #1819
+- Fixed Gripper for `MetroDataGridRowHeader` style #1822
+- Fixed runtime change of `IgnoreTaskbarOnMaximize` with a maximized window (there was a bug with the frame) #1823 (39a7e05)
+- Fixed upgrading the `WindowPlacementSettings` on version change #1787 #1736 (ada352b)
+- Fixed a painting issue of the entire window and the maximize action (5ae97f9)
+- Fixed another `Topmost` bug: Window is going behind other windows on program start #1251 (6b0a8fa)
+- Fixed brief flashing window when launched (e.g. from the explorer) #1781 (4b42fe0)</releaseNotes>
+    <copyright />
+    <language />
+    <tags>WPF UI Metro ModernUI XAML Toolkit Library .NET</tags>
+  </metadata>
+</package>

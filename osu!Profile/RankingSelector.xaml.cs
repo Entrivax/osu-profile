@@ -102,5 +102,15 @@ namespace osu_Profile
         {
             MainWindow.config.IniWriteValue("User", "playcountbox", "false");
         }
+
+        private void topPP_Checked(object sender, RoutedEventArgs e)
+        {
+            MainWindow.config.IniWriteValue("User", "topPPbox", "true");
+        }
+
+        private void topPP_Unchecked(object sender, RoutedEventArgs e)
+        {
+            MainWindow.config.IniWriteValue("User", "topPPbox", "false");
+        }
     }
 }

@@ -164,6 +164,20 @@ namespace Osu_Profile
                     playcountbox.Text = value;
             }
         }
+        public String TopPP
+        {
+            get
+            {
+                return topPPbox.Text;
+            }
+            set
+            {
+                if (value == "0")
+                    topPPbox.Text = "";
+                else
+                    topPPbox.Text = value;
+            }
+        }
 
         public String RankedScoreChange
         {
@@ -263,6 +277,20 @@ namespace Osu_Profile
                     playcountchangebox.Text = value;
             }
         }
+        public String TopPPChange
+        {
+            get
+            {
+                return topPPchangebox.Text;
+            }
+            set
+            {
+                if (value == "0")
+                    topPPchangebox.Text = "";
+                else
+                    topPPchangebox.Text = value;
+            }
+        }
 
         public TextBox RankedBox
         {
@@ -313,6 +341,13 @@ namespace Osu_Profile
                 return playcountbox;
             }
         }
+        public TextBox TopPPBox
+        {
+            get
+            {
+                return topPPbox;
+            }
+        }
 
         public TextBox RankedScoreChangeBox
         {
@@ -361,6 +396,13 @@ namespace Osu_Profile
             get
             {
                 return playcountchangebox;
+            }
+        }
+        public TextBox TopPPChangeBox
+        {
+            get
+            {
+                return topPPchangebox;
             }
         }
         public TextBox PlayBox
@@ -455,7 +497,8 @@ namespace Osu_Profile
                     {
                         string apiReturn = client.DownloadString("https://osu.ppy.sh/api/get_user?k=" + apikey + "&u=" + user + "&m=" + MainWindow.mode);
                         apiReturn = apiReturn.Substring(1, apiReturn.Length - 2);
-                        PlayerActualState = PlayerFirstState = PlayerPreviousState = JsonConvert.DeserializeObject<Player>(apiReturn);
+                        PlayerActualState = JsonConvert.DeserializeObject<Player>(apiReturn);
+                        PlayerActualState.TopRanks = JsonConvert.DeserializeObject<Score[]>(client.DownloadString("https://osu.ppy.sh/api/get_user_best?k=" + apikey + "&u=" + user + "&m=" + MainWindow.mode));
                         PlayerActualState.Mode = MainWindow.mode;
                         PlayerFirstState = PlayerPreviousState = PlayerActualState;
                         downloaded = true;
@@ -467,7 +510,7 @@ namespace Osu_Profile
                 }
                 catch (Exception e) { downloaded = false; retry++; Console.WriteLine(e.StackTrace); }
             }
-            if(!downloaded)
+            if (!downloaded)
                 return false;
             if (PlayerActualState != null && PlayerActualState.ID != 0)
             {
@@ -479,6 +522,10 @@ namespace Osu_Profile
                 SetValue(ppbox, PlayerActualState.PP, "#,#.##");
                 SetValue(accuracybox, PlayerActualState.Accuracy, "#,#.#####");
                 SetValue(playcountbox, PlayerActualState.PlayCount, "#,#");
+                if (PlayerActualState.TopRanks != null && PlayerActualState.TopRanks.Length > 0)
+                    SetValue(topPPbox, PlayerActualState.TopRanks[0].PP, "#,#.#####");
+                else
+                    SetValue(topPPbox, 0, "");
 
                 SetValue(levelchangebox, 0, "");
                 SetValue(rankedscorechangebox, 0, "");
@@ -487,6 +534,7 @@ namespace Osu_Profile
                 SetValue(ppchangebox, 0, "");
                 SetValue(accuracychangebox, 0, "");
                 SetValue(playcountchangebox, 0, "");
+                SetValue(topPPbox, 0, "");
 
                 if (!loopthread.IsAlive)
                     loopthread.Start();
@@ -670,6 +718,22 @@ namespace Osu_Profile
                 playcountchangebox.Visibility = Visibility.Hidden;
             }
 
+            if (MainWindow.config.IniReadValue("User", "topPPbox", "true") == "true")
+            {
+                topPPLab.Visibility = Visibility.Visible;
+                topPPLab.Visibility = Visibility.Visible;
+                topPPchangebox.Visibility = Visibility.Visible;
+                controls.Add(topPPLab);
+                controls.Add(topPPbox);
+                controls.Add(topPPchangebox);
+            }
+            else
+            {
+                topPPLab.Visibility = Visibility.Hidden;
+                topPPbox.Visibility = Visibility.Hidden;
+                topPPchangebox.Visibility = Visibility.Hidden;
+            }
+
             rankingcomponents = controls.Count / 3;
             int count = 0;
             foreach (Control control in controls)
@@ -700,9 +764,11 @@ namespace Osu_Profile
                     MainWindow.MWindow.PP = MainWindow.MWindow.PlayerActualState.PP.ToString("#,#.##", CultureInfo.InvariantCulture);
                     MainWindow.MWindow.Accuracy = MainWindow.MWindow.PlayerActualState.Accuracy.ToString("#,#.#####", CultureInfo.InvariantCulture);
                     MainWindow.MWindow.PlayCount = MainWindow.MWindow.PlayerActualState.PlayCount.ToString("#,#", CultureInfo.InvariantCulture);
+                    if (MainWindow.MWindow.PlayerActualState.TopRanks != null && MainWindow.MWindow.PlayerActualState.TopRanks.Length > 0)
+                        MainWindow.MWindow.TopPP = MainWindow.MWindow.PlayerActualState.TopRanks[0].PP.ToString("#,#.#####", CultureInfo.InvariantCulture);
 
                     int ppRankDif = 0, playCountDif = 0;
-                    float levelDif = 0, ppDif = 0, accuracyDif = 0;
+                    float levelDif = 0, ppDif = 0, accuracyDif = 0, topPPDif = 0;
                     long rankedScoreDif = 0, scoreDif = 0;
                     if (MainWindow.scoremode == 0) // Each game mode
                     {
@@ -713,6 +779,11 @@ namespace Osu_Profile
                         ppDif = MainWindow.MWindow.PlayerActualState.PP - MainWindow.MWindow.PlayerPreviousState.PP;
                         accuracyDif = MainWindow.MWindow.PlayerActualState.Accuracy - MainWindow.MWindow.PlayerPreviousState.Accuracy;
                         playCountDif = MainWindow.MWindow.PlayerActualState.PlayCount - MainWindow.MWindow.PlayerPreviousState.PlayCount;
+                        if (MainWindow.MWindow.PlayerActualState.TopRanks != null && MainWindow.MWindow.PlayerActualState.TopRanks.Length > 0)
+                            if (MainWindow.MWindow.PlayerPreviousState.TopRanks != null && MainWindow.MWindow.PlayerPreviousState.TopRanks.Length > 0)
+                                topPPDif = MainWindow.MWindow.PlayerActualState.TopRanks[0].PP - MainWindow.MWindow.PlayerPreviousState.TopRanks[0].PP;
+                            else
+                                topPPDif = MainWindow.MWindow.PlayerActualState.TopRanks[0].PP;
                     }
                     else if (MainWindow.scoremode == 1) // This session mode
                     {
@@ -723,6 +794,11 @@ namespace Osu_Profile
                         ppDif = MainWindow.MWindow.PlayerActualState.PP - MainWindow.MWindow.PlayerFirstState.PP;
                         accuracyDif = MainWindow.MWindow.PlayerActualState.Accuracy - MainWindow.MWindow.PlayerFirstState.Accuracy;
                         playCountDif = MainWindow.MWindow.PlayerActualState.PlayCount - MainWindow.MWindow.PlayerFirstState.PlayCount;
+                        if (MainWindow.MWindow.PlayerActualState.TopRanks != null && MainWindow.MWindow.PlayerActualState.TopRanks.Length > 0)
+                            if (MainWindow.MWindow.PlayerFirstState.TopRanks != null && MainWindow.MWindow.PlayerFirstState.TopRanks.Length > 0)
+                                topPPDif = MainWindow.MWindow.PlayerActualState.TopRanks[0].PP - MainWindow.MWindow.PlayerFirstState.TopRanks[0].PP;
+                            else
+                                topPPDif = MainWindow.MWindow.PlayerActualState.TopRanks[0].PP;
                     }
                     MainWindow.MWindow.RankedScoreChange = rankedScoreDif.ToString("#,#", CultureInfo.InvariantCulture);
                     MainWindow.MWindow.LevelChange = levelDif.ToString("#,#0.####", CultureInfo.InvariantCulture);
@@ -731,6 +807,7 @@ namespace Osu_Profile
                     MainWindow.MWindow.PPChange = ppDif.ToString("#,#0.##", CultureInfo.InvariantCulture);
                     MainWindow.MWindow.AccuracyChange = accuracyDif.ToString("#,#0.#####", CultureInfo.InvariantCulture);
                     MainWindow.MWindow.PlayCountChange = playCountDif.ToString("#,#", CultureInfo.InvariantCulture);
+                    MainWindow.MWindow.TopPPChange = topPPDif.ToString("#,#0.#####", CultureInfo.InvariantCulture);
 
 
                     if (ppDif > 0)
@@ -803,6 +880,16 @@ namespace Osu_Profile
                     {
                         MainWindow.MWindow.PlayCountChangeBox.Foreground = new SolidColorBrush(Colors.Red);
                     }
+
+                    if (topPPDif > 0)
+                    {
+                        MainWindow.MWindow.TopPPChange = "+" + MainWindow.MWindow.TopPPChange;
+                        MainWindow.MWindow.TopPPChangeBox.Foreground = new SolidColorBrush(Colors.Green);
+                    }
+                    else
+                    {
+                        MainWindow.MWindow.TopPPChangeBox.Foreground = new SolidColorBrush(Colors.Red);
+                    }
                 }));
             }
             else
@@ -814,6 +901,7 @@ namespace Osu_Profile
                 MainWindow.MWindow.PP = "";
                 MainWindow.MWindow.Accuracy = "";
                 MainWindow.MWindow.PlayCount = "";
+                MainWindow.MWindow.TopPP = "";
 
                 MainWindow.MWindow.RankedScoreChange = "";
                 MainWindow.MWindow.LevelChange = "";
@@ -822,6 +910,7 @@ namespace Osu_Profile
                 MainWindow.MWindow.PPChange = "";
                 MainWindow.MWindow.AccuracyChange = "";
                 MainWindow.MWindow.PlayCountChange = "";
+                MainWindow.MWindow.TopPPChange = "";
             }
         }
 
@@ -958,6 +1047,12 @@ namespace Osu_Profile
                         {
                             MainWindow.MWindow.PlayerPreviousState = MainWindow.MWindow.PlayerActualState;
                             MainWindow.MWindow.PlayerActualState = tempState;
+                            //TODO : Add
+                            if (MainWindow.MWindow.PlayerPreviousState.PP < MainWindow.MWindow.PlayerActualState.PP)
+                            {
+                                MainWindow.MWindow.PlayerActualState.TopRanks = JsonConvert.DeserializeObject<Score[]>(client.DownloadString("https://osu.ppy.sh/api/get_user_best?k=" + APIKey + "&u=" + Username + "&m=" + MainWindow.mode));
+                            }
+
                             if (config.IniReadValue("User", "popupEachMap", "false") == "true" && MainWindow.MWindow.PlayerPreviousState.RankedScore != MainWindow.MWindow.PlayerActualState.RankedScore)
                             {
                                 MainWindow.MWindow.RankedScoreChangeBox.Dispatcher.Invoke(new Action(() =>
@@ -1041,6 +1136,7 @@ namespace Osu_Profile
                             output = output.Replace("[/pp]", MainWindow.MWindow.PP);
                             output = output.Replace("[/a]", MainWindow.MWindow.Accuracy);
                             output = output.Replace("[/pc]", MainWindow.MWindow.PlayCount);
+                            output = output.Replace("[/toppp]", MainWindow.MWindow.TopPP);
 
                             output = output.Replace("[/rsc]", MainWindow.MWindow.RankedScoreChange);
                             output = output.Replace("[/tsc]", MainWindow.MWindow.TotalScoreChange);
@@ -1049,6 +1145,7 @@ namespace Osu_Profile
                             output = output.Replace("[/ppc]", MainWindow.MWindow.PPChange);
                             output = output.Replace("[/ac]", MainWindow.MWindow.AccuracyChange);
                             output = output.Replace("[/pcc]", MainWindow.MWindow.PlayCountChange);
+                            output = output.Replace("[/topppc]", MainWindow.MWindow.TopPPChange);
                         }));
                     }
                     try
