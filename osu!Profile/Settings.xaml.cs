@@ -1,6 +1,8 @@
 ﻿using Osu_Profile;
 using System;
+using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices.ComTypes;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -103,9 +105,7 @@ namespace osu_Profile
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (MainWindow.MWindow.Start(userbox.Text, apibox.Password))
-            {
                 apibox.IsEnabled = false;
-            }
             else
                 apibox.IsEnabled = true;
         }
@@ -155,10 +155,18 @@ namespace osu_Profile
             alwaysontopcheck.IsChecked = config.IniReadValue("User", "topmost", "false") == "true";
             popupEachMap.IsChecked = config.IniReadValue("User", "popupEachMap", "false") == "true";
             popupPPUp.IsChecked = config.IniReadValue("User", "popupPP", "false") == "true";
+            checkOnStart.IsChecked = config.IniReadValue("User", "checkOnStart", "false") == "true";
+            startWithWindows.IsChecked = config.IniReadValue("User", "startWithWindows", "false") == "true";
             versiontext.Dispatcher.BeginInvoke(new Action(() =>
             {
                 versiontext.Content = "Version " + Assembly.GetEntryAssembly().GetName().Version.ToString();
             }), DispatcherPriority.Background);
+
+            if (config.IniReadValue("User", "checkOnStart", "false") == "true")
+                if (MainWindow.MWindow.Start(userbox.Text, apibox.Password))
+                    apibox.IsEnabled = false;
+                else
+                    apibox.IsEnabled = true;
         }
 
         private void add_Click(object sender, RoutedEventArgs e)
@@ -258,6 +266,45 @@ namespace osu_Profile
         private void popupPP_Unchecked(object sender, RoutedEventArgs e)
         {
             config.IniWriteValue("User", "popupPP", "false");
+        }
+
+        private void checkOnStart_Checked(object sender, RoutedEventArgs e)
+        {
+            config.IniWriteValue("User", "checkOnStart", "true");
+        }
+
+        private void checkOnStart_Unchecked(object sender, RoutedEventArgs e)
+        {
+            config.IniWriteValue("User", "checkOnStart", "false");
+        }
+
+        private void startWithWindows_Checked(object sender, RoutedEventArgs e)
+        {
+            config.IniWriteValue("User", "startWithWindows", "true");
+
+            string startupShotcut = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "osu!profile.lnk");
+            Console.WriteLine(startupShotcut);
+            if (!File.Exists(startupShotcut))
+            {
+                osu_Profile.Shortcut.IShellLink link = (osu_Profile.Shortcut.IShellLink)new osu_Profile.Shortcut.ShellLink();
+
+                link.SetDescription("osu!profile");
+                link.SetPath(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+
+                IPersistFile file = (IPersistFile)link;
+                file.Save(startupShotcut, false);
+            }
+        }
+
+        private void startWithWindows_Unchecked(object sender, RoutedEventArgs e)
+        {
+            config.IniWriteValue("User", "startWithWindows", "false");
+
+            string startupShotcut = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "osu!profile.lnk");
+            if (File.Exists(startupShotcut))
+            {
+                File.Delete(startupShotcut);
+            }
         }
 
         private void backgroundColor_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)

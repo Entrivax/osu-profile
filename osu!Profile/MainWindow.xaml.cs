@@ -11,6 +11,7 @@ using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Reflection;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -957,6 +958,27 @@ namespace Osu_Profile
                 files.Add(config.IniReadValue("Files", "filename"+i, ""));
                 contents.Add(config.IniReadValue("Files", "filecontent"+i, "").Replace("\\n", "\n"));
                 settingsPanel.FileList.Add(config.IniReadValue("Files", "filename" + i, ""));
+            }
+
+            string startupShotcut = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "osu!profile.lnk");
+
+            if (File.Exists(startupShotcut))
+            {
+                if (config.IniReadValue("User", "startWithWindows", "false") == "false")
+                    File.Delete(startupShotcut);
+            }
+            else
+            {
+                if (config.IniReadValue("User", "startWithWindows", "false") == "true")
+                {
+                    osu_Profile.Shortcut.IShellLink link = (osu_Profile.Shortcut.IShellLink)new osu_Profile.Shortcut.ShellLink();
+
+                    link.SetDescription("osu!profile");
+                    link.SetPath(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+
+                    IPersistFile file = (IPersistFile)link;
+                    file.Save(startupShotcut, false);
+                }
             }
 
             UpdateRankingDisplay();

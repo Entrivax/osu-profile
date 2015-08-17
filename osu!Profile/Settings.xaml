@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
-             mc:Ignorable="d" Height="445.373" Width="352" Loaded="UserControl_Loaded">
+             mc:Ignorable="d" Height="489.373" Width="352" Loaded="UserControl_Loaded">
     <Grid Margin="10">
         <TextBox x:Name="userbox" Height="23" Margin="64,10,62,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.48,0.53" KeyUp="userbox_KeyUp"/>
         <Label Content="User" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,9,0,0" RenderTransformOrigin="0.706,0.692"/>
@@ -44,5 +44,7 @@
         <CheckBox x:Name="popupPPUp" Content="Popup when gain PP" Margin="0,345,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="136" Unchecked="popupPP_Unchecked" Checked="popupPP_Checked" Controls:ToggleButtonHelper.ContentDirection="RightToLeft"/>
         <toolkit:ColorPicker x:Name="backgroundColor" Margin="64,368,0,0" Height="22" VerticalAlignment="Top" ColorMode="ColorCanvas" ShowAvailableColors="False" ShowAdvancedButton="False" ShowDropDownButton="False" ShowStandardColors="False" UsingAlphaChannel="False" SelectedColorChanged="backgroundColor_SelectedColorChanged" Loaded="backgroundColor_Loaded"/>
         <Label Content="Color" HorizontalAlignment="Left" Margin="6,366,0,0" Height="26" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkOnStart" Content="Check on start" Margin="0,395,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="102" Unchecked="checkOnStart_Unchecked" Checked="checkOnStart_Checked" Controls:ToggleButtonHelper.ContentDirection="RightToLeft"/>
+        <CheckBox x:Name="startWithWindows" Content="Start with Windows" Margin="0,418,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="127" Unchecked="startWithWindows_Unchecked" Checked="startWithWindows_Checked" Controls:ToggleButtonHelper.ContentDirection="RightToLeft"/>
     </Grid>
 </UserControl>
