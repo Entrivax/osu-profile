@@ -722,7 +722,7 @@ namespace Osu_Profile
             if (MainWindow.config.IniReadValue("User", "topPPbox", "true") == "true")
             {
                 topPPLab.Visibility = Visibility.Visible;
-                topPPLab.Visibility = Visibility.Visible;
+                topPPbox.Visibility = Visibility.Visible;
                 topPPchangebox.Visibility = Visibility.Visible;
                 controls.Add(topPPLab);
                 controls.Add(topPPbox);

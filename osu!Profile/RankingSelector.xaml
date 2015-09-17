@@ -12,7 +12,7 @@
         <CheckBox x:Name="accu" Content="Accuracy" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Checked="accu_Checked" Unchecked="accu_Unchecked"/>
         <Button x:Name="valid" Content="Valid" Margin="10,0,10,10" Click="valid_Click" Height="25" VerticalAlignment="Bottom"/>
         <CheckBox x:Name="playcount" Content="Play Count" HorizontalAlignment="Left" Margin="10,148,0,0" VerticalAlignment="Top" Checked="playcount_Checked" Unchecked="playcount_Unchecked"/>
-        <CheckBox x:Name="topPP" Content="Top PP" HorizontalAlignment="Left" Margin="10,171,0,0" VerticalAlignment="Top" Checked="topPP_Unchecked" Unchecked="topPP_Unchecked"/>
+        <CheckBox x:Name="topPP" Content="Top PP" HorizontalAlignment="Left" Margin="10,171,0,0" VerticalAlignment="Top" Checked="topPP_Checked" Unchecked="topPP_Unchecked"/>
 
     </Grid>
 </controls:MetroWindow>

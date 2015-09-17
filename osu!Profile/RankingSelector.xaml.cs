@@ -20,6 +20,7 @@ namespace osu_Profile
             pp.IsChecked = MainWindow.config.IniReadValue("User", "ppbox", "true") == "true";
             accu.IsChecked = MainWindow.config.IniReadValue("User", "accubox", "true") == "true";
             playcount.IsChecked = MainWindow.config.IniReadValue("User", "playcountbox", "true") == "true";
+            topPP.IsChecked = MainWindow.config.IniReadValue("User", "topPPbox", "true") == "true";
         }
 
         private void valid_Click(object sender, RoutedEventArgs e)
