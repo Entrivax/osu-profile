@@ -123,6 +123,20 @@ namespace Osu_Profile
                     rankbox.Text = value;
             }
         }
+        public String CountryRank
+        {
+            get
+            {
+                return countryrankbox.Text;
+            }
+            set
+            {
+                if (value == "0")
+                    countryrankbox.Text = "";
+                else
+                    countryrankbox.Text = value;
+            }
+        }
         public String PP
         {
             get
@@ -236,6 +250,20 @@ namespace Osu_Profile
                     rankchangebox.Text = value;
             }
         }
+        public String CountryRankChange
+        {
+            get
+            {
+                return countryrankchangebox.Text;
+            }
+            set
+            {
+                if (value == "0")
+                    countryrankchangebox.Text = "";
+                else
+                    countryrankchangebox.Text = value;
+            }
+        }
         public String PPChange
         {
             get
@@ -321,6 +349,13 @@ namespace Osu_Profile
                 return rankbox;
             }
         }
+        public TextBox CountryRankBox
+        {
+            get
+            {
+                return countryrankbox;
+            }
+        }
         public TextBox PPBox
         {
             get
@@ -376,6 +411,13 @@ namespace Osu_Profile
             get
             {
                 return rankchangebox;
+            }
+        }
+        public TextBox CountryRankChangeBox
+        {
+            get
+            {
+                return countryrankchangebox;
             }
         }
         public TextBox PPChangeBox
@@ -520,6 +562,7 @@ namespace Osu_Profile
                 SetValue(levelbox, PlayerActualState.Level, "#,#.####");
                 SetValue(totalbox, PlayerActualState.Score, "#,#");
                 SetValue(rankbox, PlayerActualState.PPRank, "#,#");
+                SetValue(countryrankbox, PlayerActualState.PPCountryRank, "#,#");
                 SetValue(ppbox, PlayerActualState.PP, "#,#.##");
                 SetValue(accuracybox, PlayerActualState.Accuracy, "#,#.#####");
                 SetValue(playcountbox, PlayerActualState.PlayCount, "#,#");
@@ -532,6 +575,7 @@ namespace Osu_Profile
                 SetValue(rankedscorechangebox, 0, "");
                 SetValue(totalscorechangebox, 0, "");
                 SetValue(rankchangebox, 0, "");
+                SetValue(countryrankchangebox, 0, "");
                 SetValue(ppchangebox, 0, "");
                 SetValue(accuracychangebox, 0, "");
                 SetValue(playcountchangebox, 0, "");
@@ -655,7 +699,7 @@ namespace Osu_Profile
                 totalscorechangebox.Visibility = Visibility.Hidden;
             }
 
-            if (MainWindow.config.IniReadValue("User", "rankbox", "true") == "true")
+            if (MainWindow.config.IniReadValue("User", "countryrankbox", "true") == "true")
             {
                 rankLab.Visibility = Visibility.Visible;
                 rankbox.Visibility = Visibility.Visible;
@@ -669,6 +713,22 @@ namespace Osu_Profile
                 rankLab.Visibility = Visibility.Hidden;
                 rankbox.Visibility = Visibility.Hidden;
                 rankchangebox.Visibility = Visibility.Hidden;
+            }
+
+            if (MainWindow.config.IniReadValue("User", "countryrankbox", "true") == "true")
+            {
+                countryrankLab.Visibility = Visibility.Visible;
+                countryrankbox.Visibility = Visibility.Visible;
+                countryrankchangebox.Visibility = Visibility.Visible;
+                controls.Add(countryrankLab);
+                controls.Add(countryrankbox);
+                controls.Add(countryrankchangebox);
+            }
+            else
+            {
+                countryrankLab.Visibility = Visibility.Hidden;
+                countryrankbox.Visibility = Visibility.Hidden;
+                countryrankchangebox.Visibility = Visibility.Hidden;
             }
 
             if (MainWindow.config.IniReadValue("User", "ppbox", "true") == "true")
@@ -762,13 +822,14 @@ namespace Osu_Profile
                     MainWindow.MWindow.Level = MainWindow.MWindow.PlayerActualState.Level.ToString("#,#.####", CultureInfo.InvariantCulture);
                     MainWindow.MWindow.Total = MainWindow.MWindow.PlayerActualState.Score.ToString("#,#", CultureInfo.InvariantCulture);
                     MainWindow.MWindow.Rank = MainWindow.MWindow.PlayerActualState.PPRank.ToString("#,#", CultureInfo.InvariantCulture);
+                    MainWindow.MWindow.CountryRank = MainWindow.MWindow.PlayerActualState.PPCountryRank.ToString("#,#", CultureInfo.InvariantCulture);
                     MainWindow.MWindow.PP = MainWindow.MWindow.PlayerActualState.PP.ToString("#,#.##", CultureInfo.InvariantCulture);
                     MainWindow.MWindow.Accuracy = MainWindow.MWindow.PlayerActualState.Accuracy.ToString("#,#.#####", CultureInfo.InvariantCulture);
                     MainWindow.MWindow.PlayCount = MainWindow.MWindow.PlayerActualState.PlayCount.ToString("#,#", CultureInfo.InvariantCulture);
                     if (MainWindow.MWindow.PlayerActualState.TopRanks != null && MainWindow.MWindow.PlayerActualState.TopRanks.Length > 0)
                         MainWindow.MWindow.TopPP = MainWindow.MWindow.PlayerActualState.TopRanks[0].PP.ToString("#,#.#####", CultureInfo.InvariantCulture);
 
-                    int ppRankDif = 0, playCountDif = 0;
+                    int ppRankDif = 0, ppCountryRankDif = 0, playCountDif = 0;
                     float levelDif = 0, ppDif = 0, accuracyDif = 0, topPPDif = 0;
                     long rankedScoreDif = 0, scoreDif = 0;
                     if (MainWindow.scoremode == 0) // Each game mode
@@ -777,6 +838,7 @@ namespace Osu_Profile
                         levelDif = MainWindow.MWindow.PlayerActualState.Level - MainWindow.MWindow.PlayerPreviousState.Level;
                         scoreDif = MainWindow.MWindow.PlayerActualState.Score - MainWindow.MWindow.PlayerPreviousState.Score;
                         ppRankDif = MainWindow.MWindow.PlayerActualState.PPRank - MainWindow.MWindow.PlayerPreviousState.PPRank;
+                        ppCountryRankDif = MainWindow.MWindow.PlayerActualState.PPCountryRank - MainWindow.MWindow.PlayerPreviousState.PPCountryRank;
                         ppDif = MainWindow.MWindow.PlayerActualState.PP - MainWindow.MWindow.PlayerPreviousState.PP;
                         accuracyDif = MainWindow.MWindow.PlayerActualState.Accuracy - MainWindow.MWindow.PlayerPreviousState.Accuracy;
                         playCountDif = MainWindow.MWindow.PlayerActualState.PlayCount - MainWindow.MWindow.PlayerPreviousState.PlayCount;
@@ -792,6 +854,7 @@ namespace Osu_Profile
                         levelDif = MainWindow.MWindow.PlayerActualState.Level - MainWindow.MWindow.PlayerFirstState.Level;
                         scoreDif = MainWindow.MWindow.PlayerActualState.Score - MainWindow.MWindow.PlayerFirstState.Score;
                         ppRankDif = MainWindow.MWindow.PlayerActualState.PPRank - MainWindow.MWindow.PlayerFirstState.PPRank;
+                        ppCountryRankDif = MainWindow.MWindow.PlayerActualState.PPCountryRank - MainWindow.MWindow.PlayerFirstState.PPCountryRank;
                         ppDif = MainWindow.MWindow.PlayerActualState.PP - MainWindow.MWindow.PlayerFirstState.PP;
                         accuracyDif = MainWindow.MWindow.PlayerActualState.Accuracy - MainWindow.MWindow.PlayerFirstState.Accuracy;
                         playCountDif = MainWindow.MWindow.PlayerActualState.PlayCount - MainWindow.MWindow.PlayerFirstState.PlayCount;
@@ -805,6 +868,7 @@ namespace Osu_Profile
                     MainWindow.MWindow.LevelChange = levelDif.ToString("#,#0.####", CultureInfo.InvariantCulture);
                     MainWindow.MWindow.TotalScoreChange = scoreDif.ToString("#,#", CultureInfo.InvariantCulture);
                     MainWindow.MWindow.RankChange = ppRankDif.ToString("#,#", CultureInfo.InvariantCulture);
+                    MainWindow.MWindow.CountryRankChange = ppCountryRankDif.ToString("#,#", CultureInfo.InvariantCulture);
                     MainWindow.MWindow.PPChange = ppDif.ToString("#,#0.##", CultureInfo.InvariantCulture);
                     MainWindow.MWindow.AccuracyChange = accuracyDif.ToString("#,#0.#####", CultureInfo.InvariantCulture);
                     MainWindow.MWindow.PlayCountChange = playCountDif.ToString("#,#", CultureInfo.InvariantCulture);
@@ -862,6 +926,17 @@ namespace Osu_Profile
                         MainWindow.MWindow.RankChangeBox.Foreground = new SolidColorBrush(Colors.Green);
                     }
 
+                    if (ppCountryRankDif > 0)
+                    {
+                        MainWindow.MWindow.CountryRankChange = (-ppCountryRankDif).ToString("#,#", CultureInfo.InvariantCulture);
+                        MainWindow.MWindow.CountryRankChangeBox.Foreground = new SolidColorBrush(Colors.Red);
+                    }
+                    else if (ppCountryRankDif != 0)
+                    {
+                        MainWindow.MWindow.CountryRankChange = "+" + (-ppCountryRankDif).ToString("#,#", CultureInfo.InvariantCulture);
+                        MainWindow.MWindow.CountryRankChangeBox.Foreground = new SolidColorBrush(Colors.Green);
+                    }
+
                     if (accuracyDif > 0)
                     {
                         MainWindow.MWindow.AccuracyChange = "+" + MainWindow.MWindow.AccuracyChange;
@@ -899,6 +974,7 @@ namespace Osu_Profile
                 MainWindow.MWindow.Level = "";
                 MainWindow.MWindow.Total = "";
                 MainWindow.MWindow.Rank = "";
+                MainWindow.MWindow.CountryRank = "";
                 MainWindow.MWindow.PP = "";
                 MainWindow.MWindow.Accuracy = "";
                 MainWindow.MWindow.PlayCount = "";
@@ -908,6 +984,7 @@ namespace Osu_Profile
                 MainWindow.MWindow.LevelChange = "";
                 MainWindow.MWindow.TotalScoreChange = "";
                 MainWindow.MWindow.RankChange = "";
+                MainWindow.MWindow.CountryRankChange = "";
                 MainWindow.MWindow.PPChange = "";
                 MainWindow.MWindow.AccuracyChange = "";
                 MainWindow.MWindow.PlayCountChange = "";
@@ -1155,6 +1232,7 @@ namespace Osu_Profile
                             output = output.Replace("[/ts]", MainWindow.MWindow.Total);
                             output = output.Replace("[/l]", MainWindow.MWindow.Level);
                             output = output.Replace("[/r]", MainWindow.MWindow.Rank);
+                            output = output.Replace("[/cr]", MainWindow.MWindow.CountryRank);
                             output = output.Replace("[/pp]", MainWindow.MWindow.PP);
                             output = output.Replace("[/a]", MainWindow.MWindow.Accuracy);
                             output = output.Replace("[/pc]", MainWindow.MWindow.PlayCount);
@@ -1164,6 +1242,7 @@ namespace Osu_Profile
                             output = output.Replace("[/tsc]", MainWindow.MWindow.TotalScoreChange);
                             output = output.Replace("[/lc]", MainWindow.MWindow.LevelChange);
                             output = output.Replace("[/rc]", MainWindow.MWindow.RankChange);
+                            output = output.Replace("[/crc]", MainWindow.MWindow.CountryRankChange);
                             output = output.Replace("[/ppc]", MainWindow.MWindow.PPChange);
                             output = output.Replace("[/ac]", MainWindow.MWindow.AccuracyChange);
                             output = output.Replace("[/pcc]", MainWindow.MWindow.PlayCountChange);

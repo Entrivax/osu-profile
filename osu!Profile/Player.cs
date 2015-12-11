@@ -36,6 +36,12 @@ namespace osu_Profile
         public int PPRank { get; set; }
 
         // <summary>
+        // The rank in performance ranking of the player in the country
+        // </summary>
+        [JsonProperty("pp_country_rank", NullValueHandling = NullValueHandling.Ignore)]
+        public int PPCountryRank { get; set; }
+
+        // <summary>
         // The level of the player
         // </summary>
         [JsonProperty("level", NullValueHandling = NullValueHandling.Ignore)]

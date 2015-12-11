@@ -17,6 +17,7 @@ namespace osu_Profile
             rankscore.IsChecked = MainWindow.config.IniReadValue("User", "rankscorebox", "true") == "true";
             totscore.IsChecked = MainWindow.config.IniReadValue("User", "totalscorebox", "true") == "true";
             rank.IsChecked = MainWindow.config.IniReadValue("User", "rankbox", "true") == "true";
+            countryrank.IsChecked = MainWindow.config.IniReadValue("User", "countryrankbox", "true") == "true";
             pp.IsChecked = MainWindow.config.IniReadValue("User", "ppbox", "true") == "true";
             accu.IsChecked = MainWindow.config.IniReadValue("User", "accubox", "true") == "true";
             playcount.IsChecked = MainWindow.config.IniReadValue("User", "playcountbox", "true") == "true";
@@ -49,6 +50,11 @@ namespace osu_Profile
             MainWindow.config.IniWriteValue("User", "rankbox", "true");
         }
 
+        private void countryrank_Checked(object sender, RoutedEventArgs e)
+        {
+            MainWindow.config.IniWriteValue("User", "countryrankbox", "true");
+        }
+
         private void pp_Checked(object sender, RoutedEventArgs e)
         {
             MainWindow.config.IniWriteValue("User", "ppbox", "true");
@@ -77,6 +83,11 @@ namespace osu_Profile
         private void rank_Unchecked(object sender, RoutedEventArgs e)
         {
             MainWindow.config.IniWriteValue("User", "rankbox", "false");
+        }
+
+        private void countryrank_Unchecked(object sender, RoutedEventArgs e)
+        {
+            MainWindow.config.IniWriteValue("User", "countryrankbox", "false");
         }
 
         private void pp_Unchecked(object sender, RoutedEventArgs e)
