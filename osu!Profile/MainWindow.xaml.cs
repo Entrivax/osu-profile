@@ -699,7 +699,7 @@ namespace Osu_Profile
                 totalscorechangebox.Visibility = Visibility.Hidden;
             }
 
-            if (MainWindow.config.IniReadValue("User", "countryrankbox", "true") == "true")
+            if (MainWindow.config.IniReadValue("User", "rankbox", "true") == "true")
             {
                 rankLab.Visibility = Visibility.Visible;
                 rankbox.Visibility = Visibility.Visible;
