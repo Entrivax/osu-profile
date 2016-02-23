@@ -68,9 +68,9 @@
         <Image x:Name="avatar" Height="48" VerticalAlignment="Top" HorizontalAlignment="Right" Width="48" Margin="0,0,43,0"/>
     </Grid>
     <Controls:MetroWindow.Flyouts>
-        <Controls:FlyoutsControl>
+        <Controls:FlyoutsControl Margin="0,30,0,0">
             <Controls:Flyout x:Name="Options" Header="Settings" Position="Right" Width="413" ScrollViewer.CanContentScroll="True" Theme="Adapt">
-                <Grid Margin="0">
+                <Grid Margin="0,0,10,0">
                     <ScrollViewer>
                         <OP:Settings x:Name="settingsPanel" Width="382"/>
                     </ScrollViewer>
