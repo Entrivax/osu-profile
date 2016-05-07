@@ -35,8 +35,10 @@ namespace Osu_Profile
 
         Thread versioncheck;
         Thread loopthread;
+        Thread loopfilethread;
 
-        public static List<String> files = new List<String>(), contents = new List<String>();
+        public static List<OutputFile> files = new List<OutputFile>();
+        public static List<Event> lastplayedbeatmaps = new List<Event>();
 
         public static int mode = 0;
         public static int scoremode = 0;
@@ -54,6 +56,9 @@ namespace Osu_Profile
             loopthread = new Thread(new ThreadStart(loopupdate.loop));
             loopthread.IsBackground = true;
 
+            loopfilethread = new Thread(new ThreadStart(loopupdate.fileLoop));
+            loopfilethread.IsBackground = true;
+            loopfilethread.Start();
 
             versioncheck = new Thread(checkversion);
             versioncheck.IsBackground = true;
@@ -1020,6 +1025,26 @@ namespace Osu_Profile
 
             ThemeManager.ChangeAppStyle(Application.Current, accent, theme);
         }
+
+        public static bool ContainsFilename(string filename)
+        {
+            foreach(OutputFile outputfile in files)
+            {
+                if (outputfile.Name.ToLower() == filename.ToLower())
+                    return true;
+            }
+            return false;
+        }
+
+        public static int IndexOfFilename(string filename)
+        {
+            for (int i = 0; i < files.Count; i++)
+            {
+                if (files[i].Name.ToLower() == filename.ToLower())
+                    return i;
+            }
+            return -1;
+        }
         #endregion
 
         #region Handlers
@@ -1032,9 +1057,11 @@ namespace Osu_Profile
 
             for (int i = 0; i < nfiles; i++)
             {
-                files.Add(config.IniReadValue("Files", "filename"+i, ""));
-                contents.Add(config.IniReadValue("Files", "filecontent"+i, "").Replace("\\n", "\n"));
-                settingsPanel.FileList.Add(config.IniReadValue("Files", "filename" + i, ""));
+                int time = 0;
+                int.TryParse(config.IniReadValue("Files", "filetime" + i, "0"), out time);
+                OutputFile outputFile = new OutputFile(config.IniReadValue("Files", "filename" + i, ""), config.IniReadValue("Files", "filecontent" + i, "").Replace("\\n", Environment.NewLine), time);
+                files.Add(outputFile);
+                settingsPanel.FileList.Add(outputFile.Name);
             }
 
             string startupShotcut = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "osu!profile.lnk");
@@ -1095,7 +1122,6 @@ namespace Osu_Profile
         }
         #endregion
 
-
         public class Loop
         {
             #region Variable
@@ -1112,8 +1138,23 @@ namespace Osu_Profile
 
                     if (MainWindow.config.IniReadValue("User", "beatmaps", "false") == "true")
                         UpdatePlayPanel();
+                    ExportToFile();
 
                     TimeSpan interval = new TimeSpan(0, 0, timer);
+                    Thread.Sleep(interval);
+                }
+            }
+
+            public void fileLoop()
+            {
+                while (Thread.CurrentThread.IsAlive)
+                {
+                    for (int i = 0; i < MainWindow.files.Count; i++)
+                    {
+                        if (MainWindow.files[i].TimeLeft > 0)
+                            MainWindow.files[i].TimeLeft--;
+                    }
+                    TimeSpan interval = new TimeSpan(0, 0, 1);
                     Thread.Sleep(interval);
                 }
             }
@@ -1150,6 +1191,11 @@ namespace Osu_Profile
                             if (MainWindow.MWindow.PlayerPreviousState.PP < MainWindow.MWindow.PlayerActualState.PP)
                             {
                                 MainWindow.MWindow.PlayerActualState.TopRanks = JsonConvert.DeserializeObject<Score[]>(client.DownloadString("https://osu.ppy.sh/api/get_user_best?k=" + APIKey + "&u=" + Username + "&m=" + MainWindow.mode));
+                            }
+
+                            for (int i = 0; i < MainWindow.files.Count; i++)
+                            {
+                                MainWindow.files[i].TimeLeft = MainWindow.files[i].Time;
                             }
 
                             if (config.IniReadValue("User", "popupEachMap", "false") == "true" && MainWindow.MWindow.PlayerPreviousState.RankedScore != MainWindow.MWindow.PlayerActualState.RankedScore)
@@ -1192,9 +1238,12 @@ namespace Osu_Profile
                     }
                     catch (Exception) { downloaded = false; Thread.Sleep(new TimeSpan(0, 0, 1)); }
                 }
+
+                lastplayedbeatmaps.Clear();
                                 
                 foreach(Event ev in events){
                     ev.Initialize(APIKey);
+                    lastplayedbeatmaps.Add(ev);
                 }
 
                 MainWindow.MWindow.PlayBox.Dispatcher.Invoke(new Action(() =>
@@ -1223,37 +1272,65 @@ namespace Osu_Profile
             {
                 for (int i = 0; i < MainWindow.files.Count; i++)
                 {
-                    String output = MainWindow.contents[i];
-                    if (output != "")
+                    if (MainWindow.files[i].TimeLeft == 0 && MainWindow.files[i].Time > 0)
                     {
-                        MainWindow.MWindow.RankedScoreChangeBox.Dispatcher.Invoke(new Action(() =>
+                        if (File.ReadAllText(MainWindow.files[i].Name) != "")
+                            File.WriteAllText(MainWindow.files[i].Name, "");
+                    }
+                    else
+                    {
+                        String output = MainWindow.files[i].Content;
+                        if (output != "")
                         {
-                            output = output.Replace("[/rs]", MainWindow.MWindow.Ranked);
-                            output = output.Replace("[/ts]", MainWindow.MWindow.Total);
-                            output = output.Replace("[/l]", MainWindow.MWindow.Level);
-                            output = output.Replace("[/r]", MainWindow.MWindow.Rank);
-                            output = output.Replace("[/cr]", MainWindow.MWindow.CountryRank);
-                            output = output.Replace("[/pp]", MainWindow.MWindow.PP);
-                            output = output.Replace("[/a]", MainWindow.MWindow.Accuracy);
-                            output = output.Replace("[/pc]", MainWindow.MWindow.PlayCount);
-                            output = output.Replace("[/toppp]", MainWindow.MWindow.TopPP);
+                            MainWindow.MWindow.RankedScoreChangeBox.Dispatcher.Invoke(new Action(() =>
+                            {
+                                output = output.Replace("[/rs]", MainWindow.MWindow.Ranked);
+                                output = output.Replace("[/ts]", MainWindow.MWindow.Total);
+                                output = output.Replace("[/l]", MainWindow.MWindow.Level);
+                                output = output.Replace("[/r]", MainWindow.MWindow.Rank);
+                                output = output.Replace("[/cr]", MainWindow.MWindow.CountryRank);
+                                output = output.Replace("[/pp]", MainWindow.MWindow.PP);
+                                output = output.Replace("[/a]", MainWindow.MWindow.Accuracy);
+                                output = output.Replace("[/pc]", MainWindow.MWindow.PlayCount);
+                                output = output.Replace("[/toppp]", MainWindow.MWindow.TopPP);
 
-                            output = output.Replace("[/rsc]", MainWindow.MWindow.RankedScoreChange);
-                            output = output.Replace("[/tsc]", MainWindow.MWindow.TotalScoreChange);
-                            output = output.Replace("[/lc]", MainWindow.MWindow.LevelChange);
-                            output = output.Replace("[/rc]", MainWindow.MWindow.RankChange);
-                            output = output.Replace("[/crc]", MainWindow.MWindow.CountryRankChange);
-                            output = output.Replace("[/ppc]", MainWindow.MWindow.PPChange);
-                            output = output.Replace("[/ac]", MainWindow.MWindow.AccuracyChange);
-                            output = output.Replace("[/pcc]", MainWindow.MWindow.PlayCountChange);
-                            output = output.Replace("[/topppc]", MainWindow.MWindow.TopPPChange);
-                        }));
+                                output = output.Replace("[/rsc]", MainWindow.MWindow.RankedScoreChange);
+                                output = output.Replace("[/tsc]", MainWindow.MWindow.TotalScoreChange);
+                                output = output.Replace("[/lc]", MainWindow.MWindow.LevelChange);
+                                output = output.Replace("[/rc]", MainWindow.MWindow.RankChange);
+                                output = output.Replace("[/crc]", MainWindow.MWindow.CountryRankChange);
+                                output = output.Replace("[/ppc]", MainWindow.MWindow.PPChange);
+                                output = output.Replace("[/ac]", MainWindow.MWindow.AccuracyChange);
+                                output = output.Replace("[/pcc]", MainWindow.MWindow.PlayCountChange);
+                                output = output.Replace("[/topppc]", MainWindow.MWindow.TopPPChange);
+
+                                if (lastplayedbeatmaps.Count > 0)
+                                {
+                                    output = output.Replace("[/lpbArtist]", lastplayedbeatmaps[0].Beatmap.Artist);
+                                    output = output.Replace("[/lpbAR]", lastplayedbeatmaps[0].Beatmap.ApproachRate.ToString());
+                                    output = output.Replace("[/lpbBPM]", lastplayedbeatmaps[0].Beatmap.BPM.ToString());
+                                    output = output.Replace("[/lpbCS]", lastplayedbeatmaps[0].Beatmap.CircleSize.ToString());
+                                    output = output.Replace("[/lpbCreator]", lastplayedbeatmaps[0].Beatmap.Creator.ToString());
+                                    output = output.Replace("[/lpbDifficulty]", lastplayedbeatmaps[0].Beatmap.Difficulty.ToString());
+                                    output = output.Replace("[/lpbHP]", lastplayedbeatmaps[0].Beatmap.HealthDrain.ToString());
+                                    output = output.Replace("[/lpbID]", lastplayedbeatmaps[0].Beatmap.ID.ToString());
+                                    output = output.Replace("[/lpbOD]", lastplayedbeatmaps[0].Beatmap.OverallDifficulty.ToString());
+                                    output = output.Replace("[/lpbSetID]", lastplayedbeatmaps[0].Beatmap.SetID.ToString());
+                                    output = output.Replace("[/lpbStars]", lastplayedbeatmaps[0].Beatmap.Stars.ToString());
+                                    output = output.Replace("[/lpbTitle]", lastplayedbeatmaps[0].Beatmap.Title.ToString());
+                                    output = output.Replace("[/lpbGrade]", lastplayedbeatmaps[0].Grade);
+                                    output = output.Replace("[/lpbMods]", lastplayedbeatmaps[0].ModsString);
+                                    output = output.Replace("[/lpbScore]", lastplayedbeatmaps[0].Score.ToString());
+                                }
+                            }));
+                        }
+                        try
+                        {
+                            if (!File.Exists(MainWindow.files[i].Name) || File.ReadAllText(MainWindow.files[i].Name) != output)
+                                File.WriteAllText(MainWindow.files[i].Name, output);
+                        }
+                        catch (Exception) { }
                     }
-                    try
-                    {
-                        File.WriteAllText(MainWindow.files[i], output);
-                    }
-                    catch (Exception) { }
                 }
             }
             #endregion

@@ -141,6 +141,7 @@
     </ApplicationDefinition>
     <Compile Include="Beatmap.cs" />
     <Compile Include="Event.cs" />
+    <Compile Include="OutputFile.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="RankingSelector.xaml.cs">
       <DependentUpon>RankingSelector.xaml</DependentUpon>

@@ -186,8 +186,9 @@ namespace osu_Profile
                 fwindow.Owner = MainWindow.MWindow;
                 fwindow.number = filelist.SelectedIndex;
                 fwindow.setlist(ref filelist);
-                fwindow.file = MainWindow.files[filelist.SelectedIndex];
-                fwindow.content = MainWindow.contents[filelist.SelectedIndex];
+                fwindow.file = MainWindow.files[filelist.SelectedIndex].Name;
+                fwindow.content = MainWindow.files[filelist.SelectedIndex].Content;
+                fwindow.time = MainWindow.files[filelist.SelectedIndex].Time;
                 fwindow.Show();
             }
         }
@@ -197,13 +198,12 @@ namespace osu_Profile
             if (filelist.SelectedIndex >= 0)
             {
                 MainWindow.files.RemoveAt(filelist.SelectedIndex);
-                MainWindow.contents.RemoveAt(filelist.SelectedIndex);
                 config.IniWriteValue("User", "files", MainWindow.files.Count.ToString());
 
                 filelist.Items.Clear();
                 for (int i = 0; i < MainWindow.files.Count; i++)
                 {
-                    filelist.Items.Add(MainWindow.files[i]);
+                    filelist.Items.Add(MainWindow.files[i].Name);
                 }
             }
         }
