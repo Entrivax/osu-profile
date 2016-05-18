@@ -1,4 +1,4 @@
-﻿<controls:MetroWindow x:Class="Osu_Profile.FilesWindow"
+﻿<controls:MetroWindow x:Class="osu_Profile.Forms.FilesWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Height="270" Width="300"

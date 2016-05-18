@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Osu_Profile
+namespace osu_Profile.IO
 {
     /// <summary>
     /// Create a New INI file to store or load data

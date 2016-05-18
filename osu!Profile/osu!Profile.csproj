@@ -139,23 +139,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Beatmap.cs" />
-    <Compile Include="Event.cs" />
-    <Compile Include="OutputFile.cs" />
-    <Compile Include="Player.cs" />
-    <Compile Include="RankingSelector.xaml.cs">
+    <Compile Include="OsuAPIObjects\Beatmap.cs" />
+    <Compile Include="OsuAPIObjects\Event.cs" />
+    <Compile Include="IO\OutputFile.cs" />
+    <Compile Include="OsuAPIObjects\Player.cs" />
+    <Compile Include="Forms\RankingSelector.xaml.cs">
       <DependentUpon>RankingSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Score.cs" />
-    <Compile Include="Settings.xaml.cs">
+    <Compile Include="OsuAPIObjects\Score.cs" />
+    <Compile Include="Forms\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Shortcut.cs" />
-    <Page Include="FilesWindow.xaml">
+    <Compile Include="IO\Shortcut.cs" />
+    <Page Include="Forms\FilesWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Forms\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -163,15 +163,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FilesWindow.xaml.cs">
+    <Compile Include="Forms\FilesWindow.xaml.cs">
       <DependentUpon>FilesWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="IniFile.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="IO\IniFile.cs" />
+    <Compile Include="Forms\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="RankingSelector.xaml">
+    <Page Include="Forms\RankingSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -187,7 +187,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Settings.xaml">
+    <Page Include="Forms\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

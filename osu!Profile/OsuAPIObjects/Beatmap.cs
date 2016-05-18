@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace osu_Profile
+namespace osu_Profile.OsuAPIObjects
 {
     public class Beatmap
     {

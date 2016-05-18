@@ -1,4 +1,4 @@
-﻿using Osu_Profile;
+﻿using osu_Profile.IO;
 using System;
 using System.IO;
 using System.Reflection;
@@ -9,7 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 
-namespace osu_Profile
+namespace osu_Profile.Forms
 {
     /// <summary>
     /// Logique d'interaction pour Settings.xaml
@@ -286,7 +286,7 @@ namespace osu_Profile
             Console.WriteLine(startupShotcut);
             if (!File.Exists(startupShotcut))
             {
-                osu_Profile.Shortcut.IShellLink link = (osu_Profile.Shortcut.IShellLink)new osu_Profile.Shortcut.ShellLink();
+                Shortcut.IShellLink link = (Shortcut.IShellLink)new Shortcut.ShellLink();
 
                 link.SetDescription("osu!profile");
                 link.SetPath(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);

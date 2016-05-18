@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System.Collections.Generic;
 
-namespace osu_Profile
+namespace osu_Profile.OsuAPIObjects
 {
     public class Player
     {

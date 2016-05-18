@@ -1,36 +1,115 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.IO;
-using System.Net;
 
-namespace osu_Profile
+namespace osu_Profile.OsuAPIObjects
 {
-    public class Event
+    public class Score
     {
         // <summary>
         // The beatmap id
         // </summary>
-        [JsonProperty("beatmap_id")]
-        public int BeatmapID { get; set; }
+        [JsonProperty("beatmap_id", NullValueHandling = NullValueHandling.Ignore)]
+        public int Beatmap_ID { get; set; }
 
         // <summary>
         // The score of the player
         // </summary>
-        [JsonProperty("score")]
-        public long Score { get; set; }
+        [JsonProperty("score", NullValueHandling = NullValueHandling.Ignore)]
+        public int Points { get; set; }
+
+        // <summary>
+        // The username of the player
+        // </summary>
+        [JsonProperty("username", NullValueHandling = NullValueHandling.Ignore)]
+        public string Username { get; set; }
+
+        // <summary>
+        // The max combo reached during the game
+        // </summary>
+        [JsonProperty("maxcombo", NullValueHandling = NullValueHandling.Ignore)]
+        public int Max_Combo { get; set; }
+
+        // <summary>
+        // The number of 300
+        // </summary>
+        [JsonProperty("count300", NullValueHandling = NullValueHandling.Ignore)]
+        public int Count_300 { get; set; }
+
+        // <summary>
+        // The number of 100
+        // </summary>
+        [JsonProperty("count100", NullValueHandling = NullValueHandling.Ignore)]
+        public int Count_100 { get; set; }
+
+        // <summary>
+        // The number of 50
+        // </summary>
+        [JsonProperty("count50", NullValueHandling = NullValueHandling.Ignore)]
+        public int Count_50 { get; set; }
+
+        // <summary>
+        // The number of misses
+        // </summary>
+        [JsonProperty("countmiss", NullValueHandling = NullValueHandling.Ignore)]
+        public int Count_Miss { get; set; }
+
+        // <summary>
+        // The number of Katu
+        // </summary>
+        [JsonProperty("countkatu", NullValueHandling = NullValueHandling.Ignore)]
+        public int Count_Katu { get; set; }
+
+        // <summary>
+        // The number of Geki
+        // </summary>
+        [JsonProperty("countgeki", NullValueHandling = NullValueHandling.Ignore)]
+        public int Count_Geki { get; set; }
+
+        // <summary>
+        // If full combo
+        // Values : 1 if perfect, 0 else
+        // </summary>
+        [JsonProperty("perfect", NullValueHandling = NullValueHandling.Ignore)]
+        public int Perfect { get; set; }
 
         // <summary>
         // The mods used
         // </summary>
-        [JsonProperty("enabled_mods")]
-        public int Mods { get; set; }
+        [JsonProperty("enabled_mods", NullValueHandling = NullValueHandling.Ignore)]
+        public int Enabled_Mods { get; set; }
+
+        // <summary>
+        // The user ID of the player
+        // </summary>
+        [JsonProperty("user_id", NullValueHandling = NullValueHandling.Ignore)]
+        public int User_ID { get; set; }
+
+        // <summary>
+        // The date of the game
+        // </summary>
+        [JsonProperty("date", NullValueHandling = NullValueHandling.Ignore)]
+        public string Date { get; set; }
+
+        // <summary>
+        // The grade got in the game
+        // </summary>
+        [JsonProperty("rank", NullValueHandling = NullValueHandling.Ignore)]
+        public string Rank { get; set; }
+
+        // <summary>
+        // The PPs got by the player with this game
+        // </summary>
+        [JsonProperty("pp", NullValueHandling = NullValueHandling.Ignore)]
+        public float PP { get; set; }
 
         // <summary>
         // The mods used
         // </summary>
-        public string ModsString {
-            get{
-                int code = Mods;
+        public string ModsString
+        {
+            get
+            {
+                int code = Enabled_Mods;
                 String returnvalue = "";
                 if (code - 4194304 >= 0)
                 {
@@ -151,62 +230,6 @@ namespace osu_Profile
                 }
 
                 return returnvalue;
-            }
-        }
-
-        // <summary>
-        // The grade received on the map
-        // </summary>
-        [JsonProperty("date")]
-        public string Date { get; set; }
-
-        // <summary>
-        // The grade received on the map
-        // </summary>
-        [JsonProperty("rank")]
-        public string Grade { get; set; }
-
-        // <summary>
-        // PP gained on the map
-        // </summary>
-        public float PP { get; set; }
-
-        // <summary>
-        // The beatmap linked to the event
-        // </summary>
-        public Beatmap Beatmap { get; set; }
-
-        public void Initialize(string apikey)
-        {
-            if (BeatmapID == 0)
-                return;
-
-            if (!Directory.Exists("Cache"))
-                Directory.CreateDirectory("Cache");
-
-            if (File.Exists("Cache\\" + BeatmapID))
-            {
-                string cache = File.ReadAllText("Cache\\" + BeatmapID);
-                if (cache != null && cache != "")
-                    Beatmap = JsonConvert.DeserializeObject<Beatmap>(cache);
-            }
-            else
-            {
-
-                bool downloaded = false;
-                while (!downloaded)
-                {
-                    try
-                    {
-                        WebClient client = new WebClient();
-                        string apiReturn = client.DownloadString("http://osu.ppy.sh/api/get_beatmaps?k=" + apikey + "&b=" + BeatmapID);
-                        apiReturn = apiReturn.Substring(1, apiReturn.Length - 2);
-                        Beatmap = JsonConvert.DeserializeObject<Beatmap>(apiReturn);
-                        File.WriteAllText("Cache\\" + BeatmapID, apiReturn);
-                        downloaded = true;
-                    }
-                    catch (Exception) { downloaded = false; }
-                }
             }
         }
     }

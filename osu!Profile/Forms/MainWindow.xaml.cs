@@ -2,7 +2,8 @@
 using MahApps.Metro;
 using MahApps.Metro.Controls;
 using Newtonsoft.Json;
-using osu_Profile;
+using osu_Profile.IO;
+using osu_Profile.OsuAPIObjects;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,12 +18,11 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
-namespace Osu_Profile
+namespace osu_Profile.Forms
 {
     /// <summary>
     /// Logique d'interaction pour MainWindow.xaml
@@ -1075,7 +1075,7 @@ namespace Osu_Profile
             {
                 if (config.IniReadValue("User", "startWithWindows", "false") == "true")
                 {
-                    osu_Profile.Shortcut.IShellLink link = (osu_Profile.Shortcut.IShellLink)new osu_Profile.Shortcut.ShellLink();
+                    Shortcut.IShellLink link = (Shortcut.IShellLink)new Shortcut.ShellLink();
 
                     link.SetDescription("osu!profile");
                     link.SetPath(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);

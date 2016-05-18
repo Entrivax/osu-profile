@@ -1,8 +1,7 @@
 ﻿using MahApps.Metro.Controls;
-using Osu_Profile;
 using System.Windows;
 
-namespace osu_Profile
+namespace osu_Profile.Forms
 {
     /// <summary>
     /// Logique d'interaction pour RankingSelector.xaml

@@ -1,9 +1,10 @@
 ﻿using MahApps.Metro.Controls;
+using osu_Profile.IO;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Osu_Profile
+namespace osu_Profile.Forms
 {
     /// <summary>
     /// Logique d'interaction pour FilesWindow.xaml
