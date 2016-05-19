@@ -8,120 +8,41 @@ namespace osu_Profile.Forms
     /// </summary>
     public partial class RankingSelector : MetroWindow
     {
+        #region Constructor
         public RankingSelector()
         {
             InitializeComponent();
 
-            level.IsChecked = MainWindow.config.IniReadValue("User", "levelbox", "true") == "true";
-            rankscore.IsChecked = MainWindow.config.IniReadValue("User", "rankscorebox", "true") == "true";
-            totscore.IsChecked = MainWindow.config.IniReadValue("User", "totalscorebox", "true") == "true";
-            rank.IsChecked = MainWindow.config.IniReadValue("User", "rankbox", "true") == "true";
-            countryrank.IsChecked = MainWindow.config.IniReadValue("User", "countryrankbox", "true") == "true";
-            pp.IsChecked = MainWindow.config.IniReadValue("User", "ppbox", "true") == "true";
-            accu.IsChecked = MainWindow.config.IniReadValue("User", "accubox", "true") == "true";
-            playcount.IsChecked = MainWindow.config.IniReadValue("User", "playcountbox", "true") == "true";
-            topPP.IsChecked = MainWindow.config.IniReadValue("User", "topPPbox", "true") == "true";
+            level.IsChecked = MainWindow.config.GetValue("User", "levelbox", "true") == "true";
+            rankscore.IsChecked = MainWindow.config.GetValue("User", "rankscorebox", "true") == "true";
+            totscore.IsChecked = MainWindow.config.GetValue("User", "totalscorebox", "true") == "true";
+            rank.IsChecked = MainWindow.config.GetValue("User", "rankbox", "true") == "true";
+            countryrank.IsChecked = MainWindow.config.GetValue("User", "countryrankbox", "true") == "true";
+            pp.IsChecked = MainWindow.config.GetValue("User", "ppbox", "true") == "true";
+            accu.IsChecked = MainWindow.config.GetValue("User", "accubox", "true") == "true";
+            playcount.IsChecked = MainWindow.config.GetValue("User", "playcountbox", "true") == "true";
+            topPP.IsChecked = MainWindow.config.GetValue("User", "topPPbox", "true") == "true";
         }
+        #endregion
 
+        #region Handlers
         private void valid_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow.config.SetValue("User", "levelbox", level.IsChecked ?? false ? "true" : "false");
+            MainWindow.config.SetValue("User", "rankscorebox", rankscore.IsChecked ?? false ? "true" : "false");
+            MainWindow.config.SetValue("User", "totalscorebox", totscore.IsChecked ?? false ? "true" : "false");
+            MainWindow.config.SetValue("User", "rankbox", rank.IsChecked ?? false ? "true" : "false");
+            MainWindow.config.SetValue("User", "countryrankbox", countryrank.IsChecked ?? false ? "true" : "false");
+            MainWindow.config.SetValue("User", "ppbox", pp.IsChecked ?? false ? "true" : "false");
+            MainWindow.config.SetValue("User", "accubox", accu.IsChecked ?? false ? "true" : "false");
+            MainWindow.config.SetValue("User", "playcountbox", playcount.IsChecked ?? false ? "true" : "false");
+            MainWindow.config.SetValue("User", "topPPbox", topPP.IsChecked ?? false ? "true" : "false");
+            MainWindow.config.Export();
             ((MainWindow)this.Owner).UpdateRankingControls();
             this.Close();
         }
 
-        private void level_Checked(object sender, RoutedEventArgs e)
-        {
-            MainWindow.config.IniWriteValue("User", "levelbox", "true");
-        }
-
-        private void rankscore_Checked(object sender, RoutedEventArgs e)
-        {
-            MainWindow.config.IniWriteValue("User", "rankscorebox", "true");
-        }
-
-        private void totscore_Checked(object sender, RoutedEventArgs e)
-        {
-            MainWindow.config.IniWriteValue("User", "totalscorebox", "true");
-        }
-
-        private void rank_Checked(object sender, RoutedEventArgs e)
-        {
-            MainWindow.config.IniWriteValue("User", "rankbox", "true");
-        }
-
-        private void countryrank_Checked(object sender, RoutedEventArgs e)
-        {
-            MainWindow.config.IniWriteValue("User", "countryrankbox", "true");
-        }
-
-        private void pp_Checked(object sender, RoutedEventArgs e)
-        {
-            MainWindow.config.IniWriteValue("User", "ppbox", "true");
-        }
-
-        private void accu_Checked(object sender, RoutedEventArgs e)
-        {
-            MainWindow.config.IniWriteValue("User", "accubox", "true");
-        }
-
-        private void level_Unchecked(object sender, RoutedEventArgs e)
-        {
-            MainWindow.config.IniWriteValue("User", "levelbox", "false");
-        }
-
-        private void rankscore_Unchecked(object sender, RoutedEventArgs e)
-        {
-            MainWindow.config.IniWriteValue("User", "rankscorebox", "false");
-        }
-
-        private void totscore_Unchecked(object sender, RoutedEventArgs e)
-        {
-            MainWindow.config.IniWriteValue("User", "totalscorebox", "false");
-        }
-
-        private void rank_Unchecked(object sender, RoutedEventArgs e)
-        {
-            MainWindow.config.IniWriteValue("User", "rankbox", "false");
-        }
-
-        private void countryrank_Unchecked(object sender, RoutedEventArgs e)
-        {
-            MainWindow.config.IniWriteValue("User", "countryrankbox", "false");
-        }
-
-        private void pp_Unchecked(object sender, RoutedEventArgs e)
-        {
-            MainWindow.config.IniWriteValue("User", "ppbox", "false");
-        }
-
-        private void accu_Unchecked(object sender, RoutedEventArgs e)
-        {
-            MainWindow.config.IniWriteValue("User", "accubox", "false");
-        }
-
-        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            ((MainWindow)this.Owner).UpdateRankingControls();
-        }
-
-        private void playcount_Checked(object sender, RoutedEventArgs e)
-        {
-            MainWindow.config.IniWriteValue("User", "playcountbox", "true");
-        }
-
-        private void playcount_Unchecked(object sender, RoutedEventArgs e)
-        {
-            MainWindow.config.IniWriteValue("User", "playcountbox", "false");
-        }
-
-        private void topPP_Checked(object sender, RoutedEventArgs e)
-        {
-            MainWindow.config.IniWriteValue("User", "topPPbox", "true");
-        }
-
-        private void topPP_Unchecked(object sender, RoutedEventArgs e)
-        {
-            MainWindow.config.IniWriteValue("User", "topPPbox", "false");
-        }
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e) => ((MainWindow)this.Owner).UpdateRankingControls();
+        #endregion
     }
 }

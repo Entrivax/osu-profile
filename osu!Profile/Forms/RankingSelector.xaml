@@ -4,16 +4,16 @@
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         Title="Select elements" WindowStyle="None" ResizeMode="CanMinimize" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" SizeToContent="WidthAndHeight" ShowTitleBar="True" ShowIconOnTitleBar="False" Closing="MetroWindow_Closing" Height="260">
     <Grid Height="261" Width="142">
-        <CheckBox x:Name="level" Content="Level" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Checked="level_Checked" Unchecked="level_Unchecked"/>
-        <CheckBox x:Name="rankscore" Content="Ranked Score" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top" Checked="rankscore_Checked" Unchecked="rankscore_Unchecked"/>
-        <CheckBox x:Name="totscore" Content="Total Score" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" Checked="totscore_Checked" Unchecked="totscore_Unchecked"/>
-        <CheckBox x:Name="rank" Content="Performance Rank" HorizontalAlignment="Left" Margin="10,79,0,0" VerticalAlignment="Top" Checked="rank_Checked" Unchecked="rank_Unchecked"/>
-        <CheckBox x:Name="countryrank" Content="Country Rank" HorizontalAlignment="Left" Margin="10,102,0,0" VerticalAlignment="Top" Checked="countryrank_Checked" Unchecked="countryrank_Unchecked"/>
-        <CheckBox x:Name="pp" Content="PP" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Checked="pp_Checked" Unchecked="pp_Unchecked"/>
-        <CheckBox x:Name="accu" Content="Accuracy" HorizontalAlignment="Left" Margin="10,148,0,0" VerticalAlignment="Top" Checked="accu_Checked" Unchecked="accu_Unchecked"/>
+        <CheckBox x:Name="level" Content="Level" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="rankscore" Content="Ranked Score" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="totscore" Content="Total Score" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="rank" Content="Performance Rank" HorizontalAlignment="Left" Margin="10,79,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="countryrank" Content="Country Rank" HorizontalAlignment="Left" Margin="10,102,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="pp" Content="PP" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="accu" Content="Accuracy" HorizontalAlignment="Left" Margin="10,148,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="playcount" Content="Play Count" HorizontalAlignment="Left" Margin="10,171,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="topPP" Content="Top PP" HorizontalAlignment="Left" Margin="10,194,0,0" VerticalAlignment="Top"/>
         <Button x:Name="valid" Content="Valid" Margin="10,0,10,10" Click="valid_Click" Height="25" VerticalAlignment="Bottom"/>
-        <CheckBox x:Name="playcount" Content="Play Count" HorizontalAlignment="Left" Margin="10,171,0,0" VerticalAlignment="Top" Checked="playcount_Checked" Unchecked="playcount_Unchecked"/>
-        <CheckBox x:Name="topPP" Content="Top PP" HorizontalAlignment="Left" Margin="10,194,0,0" VerticalAlignment="Top" Checked="topPP_Checked" Unchecked="topPP_Unchecked"/>
 
     </Grid>
 </controls:MetroWindow>

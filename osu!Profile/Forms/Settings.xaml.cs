@@ -75,7 +75,7 @@ namespace osu_Profile.Forms
                 txtNum.Text = _numValue.ToString();
                 if (MainWindow.MWindow.loopupdate != null)
                     MainWindow.MWindow.loopupdate.setTimer(_numValue);
-                config.IniWriteValue("User", "looptime", _numValue.ToString());
+                config.SetValue("User", "looptime", _numValue.ToString());
             }
             get
             {
@@ -95,7 +95,7 @@ namespace osu_Profile.Forms
         #region Handlers
         private void userbox_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == System.Windows.Input.Key.Enter)
+            if (e.Key == Key.Enter)
             {
                 e.Handled = true;
                 Button_Click(sender, e);
@@ -110,15 +110,9 @@ namespace osu_Profile.Forms
                 apibox.IsEnabled = true;
         }
 
-        private void cmdUp_Click(object sender, RoutedEventArgs e)
-        {
-            TimeToWait = (_numValue + 1).ToString();
-        }
+        private void cmdUp_Click(object sender, RoutedEventArgs e) => TimeToWait = (_numValue + 1).ToString();
 
-        private void cmdDown_Click(object sender, RoutedEventArgs e)
-        {
-            TimeToWait = (_numValue - 1).ToString();
-        }
+        private void cmdDown_Click(object sender, RoutedEventArgs e) => TimeToWait = (_numValue - 1).ToString();
 
         private void txtNum_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -132,7 +126,7 @@ namespace osu_Profile.Forms
             {
                 MainWindow.mode = modelist.SelectedIndex;
                 MainWindow.MWindow.Start(userbox.Text, apibox.Password);
-                config.IniWriteValue("User", "mode", MainWindow.mode.ToString());
+                config.SetValue("User", "mode", MainWindow.mode.ToString());
             }
         }
 
@@ -140,7 +134,7 @@ namespace osu_Profile.Forms
         {
             try
             {
-                MainWindow.mode = int.Parse(config.IniReadValue("User", "mode", "0"));
+                MainWindow.mode = int.Parse(config.GetValue("User", "mode", "0"));
             }
             catch (Exception) { }
             if (MainWindow.mode < 0) MainWindow.mode = 0; if (MainWindow.mode > 3) MainWindow.mode = 3;
@@ -149,20 +143,20 @@ namespace osu_Profile.Forms
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Username = config.IniReadValue("User", "LastUsername", "");
-            APIKey = config.IniReadValue("User", "APIkey", "");
-            TimeToWait = config.IniReadValue("User", "looptime", "5");
-            alwaysontopcheck.IsChecked = config.IniReadValue("User", "topmost", "false") == "true";
-            popupEachMap.IsChecked = config.IniReadValue("User", "popupEachMap", "false") == "true";
-            popupPPUp.IsChecked = config.IniReadValue("User", "popupPP", "false") == "true";
-            checkOnStart.IsChecked = config.IniReadValue("User", "checkOnStart", "false") == "true";
-            startWithWindows.IsChecked = config.IniReadValue("User", "startWithWindows", "false") == "true";
+            Username = config.GetValue("User", "LastUsername", "");
+            APIKey = config.GetValue("User", "APIkey", "");
+            TimeToWait = config.GetValue("User", "looptime", "5");
+            alwaysontopcheck.IsChecked = config.GetValue("User", "topmost", "false") == "true";
+            popupEachMap.IsChecked = config.GetValue("User", "popupEachMap", "false") == "true";
+            popupPPUp.IsChecked = config.GetValue("User", "popupPP", "false") == "true";
+            checkOnStart.IsChecked = config.GetValue("User", "checkOnStart", "false") == "true";
+            startWithWindows.IsChecked = config.GetValue("User", "startWithWindows", "false") == "true";
             versiontext.Dispatcher.BeginInvoke(new Action(() =>
             {
                 versiontext.Content = "Version " + Assembly.GetEntryAssembly().GetName().Version.ToString();
             }), DispatcherPriority.Background);
 
-            if (config.IniReadValue("User", "checkOnStart", "false") == "true")
+            if (config.GetValue("User", "checkOnStart", "false") == "true")
                 if (MainWindow.MWindow.Start(userbox.Text, apibox.Password))
                     apibox.IsEnabled = false;
                 else
@@ -198,7 +192,7 @@ namespace osu_Profile.Forms
             if (filelist.SelectedIndex >= 0)
             {
                 MainWindow.files.RemoveAt(filelist.SelectedIndex);
-                config.IniWriteValue("User", "files", MainWindow.files.Count.ToString());
+                config.SetValue("User", "files", MainWindow.files.Count.ToString());
 
                 filelist.Items.Clear();
                 for (int i = 0; i < MainWindow.files.Count; i++)
@@ -211,14 +205,14 @@ namespace osu_Profile.Forms
         private void scoremodelist_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             MainWindow.scoremode = scoremodelist.SelectedIndex;
-            config.IniWriteValue("User", "scoremode", MainWindow.scoremode.ToString());
+            config.SetValue("User", "scoremode", MainWindow.scoremode.ToString());
         }
 
         private void scoremodelist_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
-                MainWindow.scoremode = int.Parse(config.IniReadValue("User", "scoremode", "0"));
+                MainWindow.scoremode = int.Parse(config.GetValue("User", "scoremode", "0"));
             }
             catch (Exception) { }
             if (MainWindow.scoremode < 0) MainWindow.scoremode = 0; if (MainWindow.scoremode > 1) MainWindow.scoremode = 1;
@@ -238,49 +232,49 @@ namespace osu_Profile.Forms
 
         private void alwaysontopcheck_Unchecked(object sender, RoutedEventArgs e)
         {
-            config.IniWriteValue("User", "topmost", "false");
+            config.SetValue("User", "topmost", "false");
             MainWindow.MWindow.Topmost = false;
         }
 
         private void alwaysontopcheck_Checked(object sender, RoutedEventArgs e)
         {
-            config.IniWriteValue("User", "topmost", "true");
+            config.SetValue("User", "topmost", "true");
             MainWindow.MWindow.Topmost = true;
         }
 
         private void popupEachMap_Checked(object sender, RoutedEventArgs e)
         {
-            config.IniWriteValue("User", "popupEachMap", "true");
+            config.SetValue("User", "popupEachMap", "true");
         }
 
         private void popupEachMap_Unchecked(object sender, RoutedEventArgs e)
         {
-            config.IniWriteValue("User", "popupEachMap", "false");
+            config.SetValue("User", "popupEachMap", "false");
         }
 
         private void popupPP_Checked(object sender, RoutedEventArgs e)
         {
-            config.IniWriteValue("User", "popupPP", "true");
+            config.SetValue("User", "popupPP", "true");
         }
 
         private void popupPP_Unchecked(object sender, RoutedEventArgs e)
         {
-            config.IniWriteValue("User", "popupPP", "false");
+            config.SetValue("User", "popupPP", "false");
         }
 
         private void checkOnStart_Checked(object sender, RoutedEventArgs e)
         {
-            config.IniWriteValue("User", "checkOnStart", "true");
+            config.SetValue("User", "checkOnStart", "true");
         }
 
         private void checkOnStart_Unchecked(object sender, RoutedEventArgs e)
         {
-            config.IniWriteValue("User", "checkOnStart", "false");
+            config.SetValue("User", "checkOnStart", "false");
         }
 
         private void startWithWindows_Checked(object sender, RoutedEventArgs e)
         {
-            config.IniWriteValue("User", "startWithWindows", "true");
+            config.SetValue("User", "startWithWindows", "true");
 
             string startupShotcut = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "osu!profile.lnk");
             Console.WriteLine(startupShotcut);
@@ -298,7 +292,7 @@ namespace osu_Profile.Forms
 
         private void startWithWindows_Unchecked(object sender, RoutedEventArgs e)
         {
-            config.IniWriteValue("User", "startWithWindows", "false");
+            config.SetValue("User", "startWithWindows", "false");
 
             string startupShotcut = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "osu!profile.lnk");
             if (File.Exists(startupShotcut))
@@ -311,18 +305,18 @@ namespace osu_Profile.Forms
         {
             Color SelectedColor = (Color)backgroundColor.SelectedColor;
             MainWindow.ChangeThemeColor(SelectedColor.R, SelectedColor.G, SelectedColor.B);
-            config.IniWriteValue("User", "UI_red", SelectedColor.R.ToString());
-            config.IniWriteValue("User", "UI_green", SelectedColor.G.ToString());
-            config.IniWriteValue("User", "UI_blue", SelectedColor.B.ToString());
+            config.SetValue("User", "UI_red", SelectedColor.R.ToString());
+            config.SetValue("User", "UI_green", SelectedColor.G.ToString());
+            config.SetValue("User", "UI_blue", SelectedColor.B.ToString());
         }
 
         private void backgroundColor_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
-                byte r = byte.Parse(config.IniReadValue("User", "UI_red", "17"));
-                byte g = byte.Parse(config.IniReadValue("User", "UI_green", "158"));
-                byte b = byte.Parse(config.IniReadValue("User", "UI_blue", "218"));
+                byte r = byte.Parse(config.GetValue("User", "UI_red", "17"));
+                byte g = byte.Parse(config.GetValue("User", "UI_green", "158"));
+                byte b = byte.Parse(config.GetValue("User", "UI_blue", "218"));
                 backgroundColor.SelectedColor = Color.FromRgb(r, g, b);
                 MainWindow.ChangeThemeColor(r, g, b);
             }

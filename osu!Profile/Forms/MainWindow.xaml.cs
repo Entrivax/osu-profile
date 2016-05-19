@@ -29,8 +29,8 @@ namespace osu_Profile.Forms
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        #region Variables
-        public static IniFile config = new IniFile(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\config.ini");
+        #region Attributes
+        public static IniFile config = new IniFile(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\config.ini", "=");
         public Loop loopupdate = new Loop();
 
         Thread versioncheck;
@@ -51,6 +51,7 @@ namespace osu_Profile.Forms
         {
             InitializeComponent();
             MWindow = this;
+            config.Load();
             settingsPanel.ConfigFile = config;
 
             loopthread = new Thread(new ThreadStart(loopupdate.loop));
@@ -63,9 +64,9 @@ namespace osu_Profile.Forms
             versioncheck = new Thread(checkversion);
             versioncheck.IsBackground = true;
             versioncheck.Start();
-
-            beatmapscheck.IsChecked = config.IniReadValue("User", "beatmaps", "false") == "true";
-            playedbox.IsEnabled = config.IniReadValue("User", "beatmaps", "false") == "true";
+            
+            beatmapscheck.IsChecked = config.GetValue("User", "beatmaps", "false") == "true";
+            playedbox.IsEnabled = config.GetValue("User", "beatmaps", "false") == "true";
 
             ThemeManager.AddAppTheme("FullLight", new Uri("pack://application:,,,/osu!Profile;component/Resources/MyStyle.xaml"));
         }
@@ -550,8 +551,9 @@ namespace osu_Profile.Forms
                         PlayerActualState.Mode = MainWindow.mode;
                         PlayerFirstState = PlayerPreviousState = PlayerActualState;
                         downloaded = true;
-                        config.IniWriteValue("User", "APIkey", apikey);
-                        config.IniWriteValue("User", "LastUsername", user);
+                        config.SetValue("User", "APIkey", apikey);
+                        config.SetValue("User", "LastUsername", user);
+                        config.Export();
                         Username = user;
                         APIKey = apikey;
                     }
@@ -562,7 +564,7 @@ namespace osu_Profile.Forms
                 return false;
             if (PlayerActualState != null && PlayerActualState.ID != 0)
             {
-                this.Title = "osu!Profile - " + PlayerActualState.Username;
+                this.Title = $"osu!Profile - {PlayerActualState.Username}";
                 SetValue(rankedbox, PlayerActualState.RankedScore, "#,#");
                 SetValue(levelbox, PlayerActualState.Level, "#,#.####");
                 SetValue(totalbox, PlayerActualState.Score, "#,#");
@@ -656,7 +658,7 @@ namespace osu_Profile.Forms
         {
             List<Control> controls = new List<Control>();
 
-            if (MainWindow.config.IniReadValue("User", "levelbox", "true") == "true")
+            if (MainWindow.config.GetValue("User", "levelbox", "true") == "true")
             {
                 levelLab.Visibility = Visibility.Visible;
                 levelbox.Visibility = Visibility.Visible;
@@ -672,7 +674,7 @@ namespace osu_Profile.Forms
                 levelchangebox.Visibility = Visibility.Hidden;
             }
 
-            if (MainWindow.config.IniReadValue("User", "rankscorebox", "true") == "true")
+            if (MainWindow.config.GetValue("User", "rankscorebox", "true") == "true")
             {
                 rscoreLab.Visibility = Visibility.Visible;
                 rankedbox.Visibility = Visibility.Visible;
@@ -688,7 +690,7 @@ namespace osu_Profile.Forms
                 rankedscorechangebox.Visibility = Visibility.Hidden;
             }
 
-            if (MainWindow.config.IniReadValue("User", "totalscorebox", "true") == "true")
+            if (MainWindow.config.GetValue("User", "totalscorebox", "true") == "true")
             {
                 tscoreLab.Visibility = Visibility.Visible;
                 totalbox.Visibility = Visibility.Visible;
@@ -704,7 +706,7 @@ namespace osu_Profile.Forms
                 totalscorechangebox.Visibility = Visibility.Hidden;
             }
 
-            if (MainWindow.config.IniReadValue("User", "rankbox", "true") == "true")
+            if (MainWindow.config.GetValue("User", "rankbox", "true") == "true")
             {
                 rankLab.Visibility = Visibility.Visible;
                 rankbox.Visibility = Visibility.Visible;
@@ -720,7 +722,7 @@ namespace osu_Profile.Forms
                 rankchangebox.Visibility = Visibility.Hidden;
             }
 
-            if (MainWindow.config.IniReadValue("User", "countryrankbox", "true") == "true")
+            if (MainWindow.config.GetValue("User", "countryrankbox", "true") == "true")
             {
                 countryrankLab.Visibility = Visibility.Visible;
                 countryrankbox.Visibility = Visibility.Visible;
@@ -736,7 +738,7 @@ namespace osu_Profile.Forms
                 countryrankchangebox.Visibility = Visibility.Hidden;
             }
 
-            if (MainWindow.config.IniReadValue("User", "ppbox", "true") == "true")
+            if (MainWindow.config.GetValue("User", "ppbox", "true") == "true")
             {
                 ppLab.Visibility = Visibility.Visible;
                 ppbox.Visibility = Visibility.Visible;
@@ -752,7 +754,7 @@ namespace osu_Profile.Forms
                 ppchangebox.Visibility = Visibility.Hidden;
             }
 
-            if (MainWindow.config.IniReadValue("User", "accubox", "true") == "true")
+            if (MainWindow.config.GetValue("User", "accubox", "true") == "true")
             {
                 accuLab.Visibility = Visibility.Visible;
                 accuracybox.Visibility = Visibility.Visible;
@@ -768,7 +770,7 @@ namespace osu_Profile.Forms
                 accuracychangebox.Visibility = Visibility.Hidden;
             }
 
-            if (MainWindow.config.IniReadValue("User", "playcountbox", "true") == "true")
+            if (MainWindow.config.GetValue("User", "playcountbox", "true") == "true")
             {
                 playcountLab.Visibility = Visibility.Visible;
                 playcountbox.Visibility = Visibility.Visible;
@@ -784,7 +786,7 @@ namespace osu_Profile.Forms
                 playcountchangebox.Visibility = Visibility.Hidden;
             }
 
-            if (MainWindow.config.IniReadValue("User", "topPPbox", "true") == "true")
+            if (MainWindow.config.GetValue("User", "topPPbox", "true") == "true")
             {
                 topPPLab.Visibility = Visibility.Visible;
                 topPPbox.Visibility = Visibility.Visible;
@@ -1051,15 +1053,15 @@ namespace osu_Profile.Forms
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
             int nfiles = 0;
-            int.TryParse(config.IniReadValue("User", "files", "0"), out nfiles);
+            int.TryParse(config.GetValue("User", "files", "0"), out nfiles);
 
-            this.Topmost = config.IniReadValue("User", "topmost", "false") == "true";
+            this.Topmost = config.GetValue("User", "topmost", "false") == "true";
 
             for (int i = 0; i < nfiles; i++)
             {
                 int time = 0;
-                int.TryParse(config.IniReadValue("Files", "filetime" + i, "0"), out time);
-                OutputFile outputFile = new OutputFile(config.IniReadValue("Files", "filename" + i, ""), config.IniReadValue("Files", "filecontent" + i, "").Replace("\\n", Environment.NewLine), time);
+                int.TryParse(config.GetValue("Files", "filetime" + i, "0"), out time);
+                OutputFile outputFile = new OutputFile(config.GetValue("Files", "filename" + i, ""), config.GetValue("Files", "filecontent" + i, "").Replace("\\n", Environment.NewLine), time);
                 files.Add(outputFile);
                 settingsPanel.FileList.Add(outputFile.Name);
             }
@@ -1068,12 +1070,12 @@ namespace osu_Profile.Forms
 
             if (File.Exists(startupShotcut))
             {
-                if (config.IniReadValue("User", "startWithWindows", "false") == "false")
+                if (config.GetValue("User", "startWithWindows", "false") == "false")
                     File.Delete(startupShotcut);
             }
             else
             {
-                if (config.IniReadValue("User", "startWithWindows", "false") == "true")
+                if (config.GetValue("User", "startWithWindows", "false") == "true")
                 {
                     Shortcut.IShellLink link = (Shortcut.IShellLink)new Shortcut.ShellLink();
 
@@ -1106,13 +1108,15 @@ namespace osu_Profile.Forms
 
         private void beatmapscheck_Checked(object sender, RoutedEventArgs e)
         {
-            config.IniWriteValue("User", "beatmaps", "true");
+            config.SetValue("User", "beatmaps", "true");
+            config.Export();
             playedbox.IsEnabled = true;
         }
 
         private void beatmapscheck_Unchecked(object sender, RoutedEventArgs e)
         {
-            config.IniWriteValue("User", "beatmaps", "false");
+            config.SetValue("User", "beatmaps", "false");
+            config.Export();
             playedbox.IsEnabled = false;
         }
 
@@ -1120,11 +1124,16 @@ namespace osu_Profile.Forms
         {
             this.Options.IsOpen = true;
         }
+        
+        private void Options_ClosingFinished(object sender, RoutedEventArgs e)
+        {
+            config.Export();
+        }
         #endregion
 
         public class Loop
         {
-            #region Variable
+            #region Attribute
             private int timer = 5;
             #endregion
 
@@ -1136,7 +1145,7 @@ namespace osu_Profile.Forms
                     UpdateRankingPanel();
                     ExportToFile();
 
-                    if (MainWindow.config.IniReadValue("User", "beatmaps", "false") == "true")
+                    if (MainWindow.config.GetValue("User", "beatmaps", "false") == "true")
                         UpdatePlayPanel();
                     ExportToFile();
 
@@ -1198,7 +1207,7 @@ namespace osu_Profile.Forms
                                 MainWindow.files[i].TimeLeft = MainWindow.files[i].Time;
                             }
 
-                            if (config.IniReadValue("User", "popupEachMap", "false") == "true" && MainWindow.MWindow.PlayerPreviousState.RankedScore != MainWindow.MWindow.PlayerActualState.RankedScore)
+                            if (config.GetValue("User", "popupEachMap", "false") == "true" && MainWindow.MWindow.PlayerPreviousState.RankedScore != MainWindow.MWindow.PlayerActualState.RankedScore)
                             {
                                 MainWindow.MWindow.RankedScoreChangeBox.Dispatcher.Invoke(new Action(() =>
                                 {
@@ -1206,7 +1215,7 @@ namespace osu_Profile.Forms
                                     MainWindow.MWindow.Focus();
                                 }));
                             }
-                            else if (config.IniReadValue("User", "popupPP", "false") == "true" && MainWindow.MWindow.PlayerPreviousState.PP < MainWindow.MWindow.PlayerActualState.PP)
+                            else if (config.GetValue("User", "popupPP", "false") == "true" && MainWindow.MWindow.PlayerPreviousState.PP < MainWindow.MWindow.PlayerActualState.PP)
                             {
                                 MainWindow.MWindow.RankedScoreChangeBox.Dispatcher.Invoke(new Action(() =>
                                 {

@@ -7,27 +7,27 @@ namespace osu_Profile.OsuAPIObjects
 {
     public class Event
     {
-        // <summary>
-        // The beatmap id
-        // </summary>
+        /// <summary>
+        /// The beatmap id
+        /// </summary>
         [JsonProperty("beatmap_id")]
         public int BeatmapID { get; set; }
 
-        // <summary>
-        // The score of the player
-        // </summary>
+        /// <summary>
+        /// The score of the player
+        /// </summary>
         [JsonProperty("score")]
         public long Score { get; set; }
 
-        // <summary>
-        // The mods used
-        // </summary>
+        /// <summary>
+        /// The mods used
+        /// </summary>
         [JsonProperty("enabled_mods")]
         public int Mods { get; set; }
 
-        // <summary>
-        // The mods used
-        // </summary>
+        /// <summary>
+        /// The mods used
+        /// </summary>
         public string ModsString {
             get{
                 int code = Mods;
@@ -154,26 +154,26 @@ namespace osu_Profile.OsuAPIObjects
             }
         }
 
-        // <summary>
-        // The grade received on the map
-        // </summary>
+        /// <summary>
+        /// The grade received on the map
+        /// </summary>
         [JsonProperty("date")]
         public string Date { get; set; }
 
-        // <summary>
-        // The grade received on the map
-        // </summary>
+        /// <summary>
+        /// The grade received on the map
+        /// </summary>
         [JsonProperty("rank")]
         public string Grade { get; set; }
 
-        // <summary>
-        // PP gained on the map
-        // </summary>
+        /// <summary>
+        /// PP gained on the map
+        /// </summary>
         public float PP { get; set; }
 
-        // <summary>
-        // The beatmap linked to the event
-        // </summary>
+        /// <summary>
+        /// The beatmap linked to the event
+        /// </summary>
         public Beatmap Beatmap { get; set; }
 
         public void Initialize(string apikey)

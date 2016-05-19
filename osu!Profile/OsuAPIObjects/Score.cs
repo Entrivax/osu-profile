@@ -5,106 +5,106 @@ namespace osu_Profile.OsuAPIObjects
 {
     public class Score
     {
-        // <summary>
-        // The beatmap id
-        // </summary>
+        /// <summary>
+        /// The beatmap id
+        /// </summary>
         [JsonProperty("beatmap_id", NullValueHandling = NullValueHandling.Ignore)]
         public int Beatmap_ID { get; set; }
 
-        // <summary>
-        // The score of the player
-        // </summary>
+        /// <summary>
+        /// The score of the player
+        /// </summary>
         [JsonProperty("score", NullValueHandling = NullValueHandling.Ignore)]
         public int Points { get; set; }
 
-        // <summary>
-        // The username of the player
-        // </summary>
+        /// <summary>
+        /// The username of the player
+        /// </summary>
         [JsonProperty("username", NullValueHandling = NullValueHandling.Ignore)]
         public string Username { get; set; }
 
-        // <summary>
-        // The max combo reached during the game
-        // </summary>
+        /// <summary>
+        /// The max combo reached during the game
+        /// </summary>
         [JsonProperty("maxcombo", NullValueHandling = NullValueHandling.Ignore)]
         public int Max_Combo { get; set; }
 
-        // <summary>
-        // The number of 300
-        // </summary>
+        /// <summary>
+        /// The number of 300
+        /// </summary>
         [JsonProperty("count300", NullValueHandling = NullValueHandling.Ignore)]
         public int Count_300 { get; set; }
 
-        // <summary>
-        // The number of 100
-        // </summary>
+        /// <summary>
+        /// The number of 100
+        /// </summary>
         [JsonProperty("count100", NullValueHandling = NullValueHandling.Ignore)]
         public int Count_100 { get; set; }
 
-        // <summary>
-        // The number of 50
-        // </summary>
+        /// <summary>
+        /// The number of 50
+        /// </summary>
         [JsonProperty("count50", NullValueHandling = NullValueHandling.Ignore)]
         public int Count_50 { get; set; }
 
-        // <summary>
-        // The number of misses
-        // </summary>
+        /// <summary>
+        /// The number of misses
+        /// </summary>
         [JsonProperty("countmiss", NullValueHandling = NullValueHandling.Ignore)]
         public int Count_Miss { get; set; }
 
-        // <summary>
-        // The number of Katu
-        // </summary>
+        /// <summary>
+        /// The number of Katu
+        /// </summary>
         [JsonProperty("countkatu", NullValueHandling = NullValueHandling.Ignore)]
         public int Count_Katu { get; set; }
 
-        // <summary>
-        // The number of Geki
-        // </summary>
+        /// <summary>
+        /// The number of Geki
+        /// </summary>
         [JsonProperty("countgeki", NullValueHandling = NullValueHandling.Ignore)]
         public int Count_Geki { get; set; }
 
-        // <summary>
-        // If full combo
-        // Values : 1 if perfect, 0 else
-        // </summary>
+        /// <summary>
+        /// If full combo
+        /// Values : 1 if perfect, 0 else
+        /// </summary>
         [JsonProperty("perfect", NullValueHandling = NullValueHandling.Ignore)]
         public int Perfect { get; set; }
 
-        // <summary>
-        // The mods used
-        // </summary>
+        /// <summary>
+        /// The mods used
+        /// </summary>
         [JsonProperty("enabled_mods", NullValueHandling = NullValueHandling.Ignore)]
         public int Enabled_Mods { get; set; }
 
-        // <summary>
-        // The user ID of the player
-        // </summary>
+        /// <summary>
+        /// The user ID of the player
+        /// </summary>
         [JsonProperty("user_id", NullValueHandling = NullValueHandling.Ignore)]
         public int User_ID { get; set; }
 
-        // <summary>
-        // The date of the game
-        // </summary>
+        /// <summary>
+        /// The date of the game
+        /// </summary>
         [JsonProperty("date", NullValueHandling = NullValueHandling.Ignore)]
         public string Date { get; set; }
 
-        // <summary>
-        // The grade got in the game
-        // </summary>
+        /// <summary>
+        /// The grade got in the game
+        /// </summary>
         [JsonProperty("rank", NullValueHandling = NullValueHandling.Ignore)]
         public string Rank { get; set; }
 
-        // <summary>
-        // The PPs got by the player with this game
-        // </summary>
+        /// <summary>
+        /// The PPs got by the player with this game
+        /// </summary>
         [JsonProperty("pp", NullValueHandling = NullValueHandling.Ignore)]
         public float PP { get; set; }
 
-        // <summary>
-        // The mods used
-        // </summary>
+        /// <summary>
+        /// The mods used
+        /// </summary>
         public string ModsString
         {
             get

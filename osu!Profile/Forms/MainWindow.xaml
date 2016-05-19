@@ -69,7 +69,7 @@
     </Grid>
     <Controls:MetroWindow.Flyouts>
         <Controls:FlyoutsControl Margin="0,30,0,0">
-            <Controls:Flyout x:Name="Options" Header="Settings" Position="Right" Width="413" ScrollViewer.CanContentScroll="True" Theme="Adapt">
+            <Controls:Flyout x:Name="Options" Header="Settings" Position="Right" Width="413" ScrollViewer.CanContentScroll="True" Theme="Adapt" ClosingFinished="Options_ClosingFinished">
                 <Grid Margin="0,0,10,0">
                     <ScrollViewer>
                         <OP:Settings x:Name="settingsPanel" Width="382"/>
