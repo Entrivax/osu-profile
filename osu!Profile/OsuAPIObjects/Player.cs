@@ -65,6 +65,36 @@ namespace osu_Profile.OsuAPIObjects
         public int PlayCount { get; set; }
 
         /// <summary>
+        /// The number of A ranks made by the player
+        /// </summary>
+        [JsonProperty("count_rank_a", NullValueHandling = NullValueHandling.Ignore)]
+        public int RankA { get; set; }
+
+        /// <summary>
+        /// The number of S ranks made by the player
+        /// </summary>
+        [JsonProperty("count_rank_s", NullValueHandling = NullValueHandling.Ignore)]
+        public int RankS { get; set; }
+
+        /// <summary>
+        /// The number of SH ranks made by the player
+        /// </summary> 
+        [JsonProperty("count_rank_sh", NullValueHandling = NullValueHandling.Ignore)]
+        public int RankSH { get; set; }
+
+        /// <summary>
+        /// The number of SS ranks made by the player
+        /// </summary>
+        [JsonProperty("count_rank_ss", NullValueHandling = NullValueHandling.Ignore)]
+        public int RankSS { get; set; }
+
+        /// <summary>
+        /// The number of SSH ranks made by the player
+        /// </summary>
+        [JsonProperty("count_rank_ssh", NullValueHandling = NullValueHandling.Ignore)]
+        public int RankSSH { get; set; }
+
+        /// <summary>
         /// User's top scores
         /// <summary>
         public Score[] TopRanks { get; set;}

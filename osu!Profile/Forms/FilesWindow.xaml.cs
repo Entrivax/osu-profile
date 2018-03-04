@@ -71,7 +71,12 @@ namespace osu_Profile.Forms
                 + "[/pp] for PP" + Environment.NewLine
                 + "[/a] for accuracy" + Environment.NewLine
                 + "[/pc] for play count" + Environment.NewLine
-                + "[/toppp] for the top PP"
+                + "[/toppp] for the top PP" + Environment.NewLine 
+                + "[/ra] for A ranks" + Environment.NewLine
+                + "[/rs] for S ranks" + Environment.NewLine
+                + "[/rsh] for SH ranks" + Environment.NewLine
+                + "[/rss] for SS ranks" + Environment.NewLine
+                + "[/rssh] for SSH ranks" 
                 + Environment.NewLine + Environment.NewLine
 
                 + "[/rsc] for ranked score difference" + Environment.NewLine
@@ -82,7 +87,12 @@ namespace osu_Profile.Forms
                 + "[/ppc] for PP difference" + Environment.NewLine
                 + "[/ac] for accuracy difference" + Environment.NewLine
                 + "[/pcc] for play count difference" + Environment.NewLine
-                + "[/topppc] for the top PP difference"
+                + "[/topppc] for the top PP difference" + Environment.NewLine 
+                + "[/rac] for A rank difference" + Environment.NewLine
+                + "[/rsc] for S rank difference" + Environment.NewLine
+                + "[/rshc] for SH rank difference" + Environment.NewLine
+                + "[/rssc] for SS rank difference" + Environment.NewLine
+                + "[/rsshc] for SSH rank difference" 
                 + Environment.NewLine + Environment.NewLine
 
                 + "[/lpbArtist] for the last played beatmap's artist" + Environment.NewLine
