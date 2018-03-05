@@ -22,6 +22,11 @@ namespace osu_Profile.Forms
             accu.IsChecked = MainWindow.config.GetValue("User", "accubox", "true") == "true";
             playcount.IsChecked = MainWindow.config.GetValue("User", "playcountbox", "true") == "true";
             topPP.IsChecked = MainWindow.config.GetValue("User", "topPPbox", "true") == "true";
+            rankA.IsChecked = MainWindow.config.GetValue("User", "rankAbox", "true") == "true";
+            rankS.IsChecked = MainWindow.config.GetValue("User", "rankSbox", "true") == "true";
+            rankSH.IsChecked = MainWindow.config.GetValue("User", "rankSHbox", "true") == "true";
+            rankSS.IsChecked = MainWindow.config.GetValue("User", "rankSSbox", "true") == "true";
+            rankSSH.IsChecked = MainWindow.config.GetValue("User", "rankSSHbox", "true") == "true";
         }
         #endregion
 
@@ -37,6 +42,11 @@ namespace osu_Profile.Forms
             MainWindow.config.SetValue("User", "accubox", accu.IsChecked ?? false ? "true" : "false");
             MainWindow.config.SetValue("User", "playcountbox", playcount.IsChecked ?? false ? "true" : "false");
             MainWindow.config.SetValue("User", "topPPbox", topPP.IsChecked ?? false ? "true" : "false");
+            MainWindow.config.SetValue("User", "rankAbox", rankA.IsChecked ?? false ? "true" : "false");
+            MainWindow.config.SetValue("User", "rankSbox", rankS.IsChecked ?? false ? "true" : "false");
+            MainWindow.config.SetValue("User", "rankSHbox", rankSH.IsChecked ?? false ? "true" : "false");
+            MainWindow.config.SetValue("User", "rankSSbox", rankSS.IsChecked ?? false ? "true" : "false");
+            MainWindow.config.SetValue("User", "rankSSHbox", rankSSH.IsChecked ?? false ? "true" : "false");
             MainWindow.config.Export();
             ((MainWindow)this.Owner).UpdateRankingControls();
             this.Close();

@@ -199,6 +199,76 @@ namespace osu_Profile.Forms
                     topPPbox.Text = value;
             }
         }
+        public String RankA
+        {
+            get
+            {
+                return rankAbox.Text;
+            }
+            set
+            {
+                if (value == "0")
+                    rankAbox.Text = "";
+                else
+                    rankAbox.Text = value;
+            }
+        }
+        public String RankS
+        {
+            get
+            {
+                return rankSbox.Text;
+            }
+            set
+            {
+                if (value == "0")
+                    rankSbox.Text = "";
+                else
+                    rankSbox.Text = value;
+            }
+        }
+        public String RankSH
+        {
+            get
+            {
+                return rankSHbox.Text;
+            }
+            set
+            {
+                if (value == "0")
+                    rankSHbox.Text = "";
+                else
+                    rankSHbox.Text = value;
+            }
+        }
+        public String RankSS
+        {
+            get
+            {
+                return rankSSbox.Text;
+            }
+            set
+            {
+                if (value == "0")
+                    rankSSbox.Text = "";
+                else
+                    rankSSbox.Text = value;
+            }
+        }
+        public String RankSSH
+        {
+            get
+            {
+                return rankSSHbox.Text;
+            }
+            set
+            {
+                if (value == "0")
+                    rankSSHbox.Text = "";
+                else
+                    rankSSHbox.Text = value;
+            }
+        }
 
         public String RankedScoreChange
         {
@@ -326,6 +396,76 @@ namespace osu_Profile.Forms
                     topPPchangebox.Text = value;
             }
         }
+        public String RankAChange
+        {
+            get
+            {
+                return rankAchangebox.Text;
+            }
+            set
+            {
+                if (value == "0")
+                    rankAchangebox.Text = "";
+                else
+                    rankAchangebox.Text = value;
+            }
+        }
+        public String RankSChange
+        {
+            get
+            {
+                return rankSchangebox.Text;
+            }
+            set
+            {
+                if (value == "0")
+                    rankSchangebox.Text = "";
+                else
+                    rankSchangebox.Text = value;
+            }
+        }
+        public String RankSHChange
+        {
+            get
+            {
+                return rankSHchangebox.Text;
+            }
+            set
+            {
+                if (value == "0")
+                    rankSHchangebox.Text = "";
+                else
+                    rankSHchangebox.Text = value;
+            }
+        }
+        public String RankSSChange
+        {
+            get
+            {
+                return rankSSchangebox.Text;
+            }
+            set
+            {
+                if (value == "0")
+                    rankSSchangebox.Text = "";
+                else
+                    rankSSchangebox.Text = value;
+            }
+        }
+        public String RankSSHChange
+        {
+            get
+            {
+                return rankSSHchangebox.Text;
+            }
+            set
+            {
+                if (value == "0")
+                    rankSSHchangebox.Text = "";
+                else
+                    rankSSHchangebox.Text = value;
+            }
+        }
 
         public TextBox RankedBox
         {
@@ -388,6 +528,41 @@ namespace osu_Profile.Forms
             get
             {
                 return topPPbox;
+            }
+        }
+        public TextBox RankABox
+        {
+            get
+            {
+                return rankAbox;
+            }
+        }
+        public TextBox RankSBox
+        {
+            get
+            {
+                return rankSbox;
+            }
+        }
+        public TextBox RankSHBox
+        {
+            get
+            {
+                return rankSHbox;
+            }
+        }
+        public TextBox RankSSBox
+        {
+            get
+            {
+                return rankSSbox;
+            }
+        }
+        public TextBox RankSSHBox
+        {
+            get
+            {
+                return rankSSHbox;
             }
         }
 
@@ -454,13 +629,48 @@ namespace osu_Profile.Forms
                 return topPPchangebox;
             }
         }
+        public TextBox RankAChangeBox
+        {
+            get
+            {
+                return rankAchangebox;
+            }
+        }
+        public TextBox RankSChangeBox
+        {
+            get
+            {
+                return rankSchangebox;
+            }
+        }
+        public TextBox RankSHChangeBox
+        {
+            get
+            {
+                return rankAchangebox;
+            }
+        }
+        public TextBox RankSSChangeBox
+        {
+            get
+            {
+                return rankSSchangebox;
+            }
+        }
+        public TextBox RankSSHChangeBox
+        {
+            get
+            {
+                return rankSSHchangebox;
+            }
+        }
         public TextBox PlayBox
         {
             get
             {
                 return playedbox;
             }
-        }
+        }        
 
         public Player PlayerFirstState { get; set; }
         public Player PlayerPreviousState { get; set; }
@@ -573,6 +783,11 @@ namespace osu_Profile.Forms
                 SetValue(ppbox, PlayerActualState.PP, "#,#.##");
                 SetValue(accuracybox, PlayerActualState.Accuracy, "#,#.#####");
                 SetValue(playcountbox, PlayerActualState.PlayCount, "#,#");
+                SetValue(rankAbox, PlayerActualState.RankA, "#,#");
+                SetValue(rankSbox, PlayerActualState.RankS, "#,#");
+                SetValue(rankSHbox, PlayerActualState.RankSH, "#,#");
+                SetValue(rankSSbox, PlayerActualState.RankSS, "#,#");
+                SetValue(rankSSHbox, PlayerActualState.RankSSH, "#,#");
                 if (PlayerActualState.TopRanks != null && PlayerActualState.TopRanks.Length > 0)
                     SetValue(topPPbox, PlayerActualState.TopRanks[0].PP, "#,#.#####");
                 else
@@ -587,6 +802,11 @@ namespace osu_Profile.Forms
                 SetValue(accuracychangebox, 0, "");
                 SetValue(playcountchangebox, 0, "");
                 SetValue(topPPbox, 0, "");
+                SetValue(rankAbox, 0, "");
+                SetValue(rankSbox, 0, "");
+                SetValue(rankSHbox, 0, "");
+                SetValue(rankSSbox, 0, "");
+                SetValue(rankSSHbox, 0, "");
 
                 if (!loopthread.IsAlive)
                     loopthread.Start();
@@ -802,6 +1022,86 @@ namespace osu_Profile.Forms
                 topPPchangebox.Visibility = Visibility.Hidden;
             }
 
+            if (MainWindow.config.GetValue("User", "rankAbox", "true") == "true")
+            {
+                rankALab.Visibility = Visibility.Visible;
+                rankAbox.Visibility = Visibility.Visible;
+                rankAchangebox.Visibility = Visibility.Visible;
+                controls.Add(rankALab);
+                controls.Add(rankAbox);
+                controls.Add(rankAchangebox);
+            }
+            else
+            {
+                rankALab.Visibility = Visibility.Hidden;
+                rankAbox.Visibility = Visibility.Hidden;
+                rankAchangebox.Visibility = Visibility.Hidden;
+            }
+
+            if (MainWindow.config.GetValue("User", "rankSbox", "true") == "true")
+            {
+                rankSLab.Visibility = Visibility.Visible;
+                rankSbox.Visibility = Visibility.Visible;
+                rankSchangebox.Visibility = Visibility.Visible;
+                controls.Add(rankSLab);
+                controls.Add(rankSbox);
+                controls.Add(rankSchangebox);
+            }
+            else
+            {
+                rankSLab.Visibility = Visibility.Hidden;
+                rankSbox.Visibility = Visibility.Hidden;
+                rankSchangebox.Visibility = Visibility.Hidden;
+            }
+
+            if (MainWindow.config.GetValue("User", "rankSHbox", "true") == "true")
+            {
+                rankSHLab.Visibility = Visibility.Visible;
+                rankSHbox.Visibility = Visibility.Visible;
+                rankSHchangebox.Visibility = Visibility.Visible;
+                controls.Add(rankSHLab);
+                controls.Add(rankSHbox);
+                controls.Add(rankSHchangebox);
+            }
+            else
+            {
+                rankSHLab.Visibility = Visibility.Hidden;
+                rankSHbox.Visibility = Visibility.Hidden;
+                rankSHchangebox.Visibility = Visibility.Hidden;
+            }
+
+            if (MainWindow.config.GetValue("User", "rankSSbox", "true") == "true")
+            {
+                rankSSLab.Visibility = Visibility.Visible;
+                rankSSbox.Visibility = Visibility.Visible;
+                rankSSchangebox.Visibility = Visibility.Visible;
+                controls.Add(rankSSLab);
+                controls.Add(rankSSbox);
+                controls.Add(rankSSchangebox);
+            }
+            else
+            {
+                rankSSLab.Visibility = Visibility.Hidden;
+                rankSSbox.Visibility = Visibility.Hidden;
+                rankSSchangebox.Visibility = Visibility.Hidden;
+            }
+
+            if (MainWindow.config.GetValue("User", "rankSSHbox", "true") == "true")
+            {
+                rankSSHLab.Visibility = Visibility.Visible;
+                rankSSHbox.Visibility = Visibility.Visible;
+                rankSSHchangebox.Visibility = Visibility.Visible;
+                controls.Add(rankSSHLab);
+                controls.Add(rankSSHbox);
+                controls.Add(rankSSHchangebox);
+            }
+            else
+            {
+                rankSSHLab.Visibility = Visibility.Hidden;
+                rankSSHbox.Visibility = Visibility.Hidden;
+                rankSSHchangebox.Visibility = Visibility.Hidden;
+            }
+
             rankingcomponents = controls.Count / 3;
             int count = 0;
             foreach (Control control in controls)
@@ -833,10 +1133,15 @@ namespace osu_Profile.Forms
                     MainWindow.MWindow.PP = MainWindow.MWindow.PlayerActualState.PP.ToString("#,#.##", CultureInfo.InvariantCulture);
                     MainWindow.MWindow.Accuracy = MainWindow.MWindow.PlayerActualState.Accuracy.ToString("#,#.#####", CultureInfo.InvariantCulture);
                     MainWindow.MWindow.PlayCount = MainWindow.MWindow.PlayerActualState.PlayCount.ToString("#,#", CultureInfo.InvariantCulture);
+                    MainWindow.MWindow.RankA = MainWindow.MWindow.PlayerActualState.RankA.ToString("#,#", CultureInfo.InvariantCulture);
+                    MainWindow.MWindow.RankS = MainWindow.MWindow.PlayerActualState.RankS.ToString("#,#", CultureInfo.InvariantCulture);
+                    MainWindow.MWindow.RankSH = MainWindow.MWindow.PlayerActualState.RankSH.ToString("#,#", CultureInfo.InvariantCulture);
+                    MainWindow.MWindow.RankSS = MainWindow.MWindow.PlayerActualState.RankSS.ToString("#,#", CultureInfo.InvariantCulture);
+                    MainWindow.MWindow.RankSSH = MainWindow.MWindow.PlayerActualState.RankSSH.ToString("#,#", CultureInfo.InvariantCulture);
                     if (MainWindow.MWindow.PlayerActualState.TopRanks != null && MainWindow.MWindow.PlayerActualState.TopRanks.Length > 0)
                         MainWindow.MWindow.TopPP = MainWindow.MWindow.PlayerActualState.TopRanks[0].PP.ToString("#,#.#####", CultureInfo.InvariantCulture);
 
-                    int ppRankDif = 0, ppCountryRankDif = 0, playCountDif = 0;
+                    int ppRankDif = 0, ppCountryRankDif = 0, playCountDif = 0, aCountDif = 0, sCountDif = 0, shCountDif = 0, ssCountDif = 0, sshCountDif = 0;
                     float levelDif = 0, ppDif = 0, accuracyDif = 0, topPPDif = 0;
                     long rankedScoreDif = 0, scoreDif = 0;
                     if (MainWindow.scoremode == 0) // Each game mode
@@ -849,6 +1154,11 @@ namespace osu_Profile.Forms
                         ppDif = MainWindow.MWindow.PlayerActualState.PP - MainWindow.MWindow.PlayerPreviousState.PP;
                         accuracyDif = MainWindow.MWindow.PlayerActualState.Accuracy - MainWindow.MWindow.PlayerPreviousState.Accuracy;
                         playCountDif = MainWindow.MWindow.PlayerActualState.PlayCount - MainWindow.MWindow.PlayerPreviousState.PlayCount;
+                        aCountDif = MainWindow.MWindow.PlayerActualState.RankA - MainWindow.MWindow.PlayerPreviousState.RankA;
+                        sCountDif = MainWindow.MWindow.PlayerActualState.RankS - MainWindow.MWindow.PlayerPreviousState.RankS;
+                        shCountDif = MainWindow.MWindow.PlayerActualState.RankSH - MainWindow.MWindow.PlayerPreviousState.RankSH;
+                        ssCountDif = MainWindow.MWindow.PlayerActualState.RankSS - MainWindow.MWindow.PlayerPreviousState.RankSS;
+                        sshCountDif = MainWindow.MWindow.PlayerActualState.RankSSH - MainWindow.MWindow.PlayerPreviousState.RankSSH;
                         if (MainWindow.MWindow.PlayerActualState.TopRanks != null && MainWindow.MWindow.PlayerActualState.TopRanks.Length > 0)
                             if (MainWindow.MWindow.PlayerPreviousState.TopRanks != null && MainWindow.MWindow.PlayerPreviousState.TopRanks.Length > 0)
                                 topPPDif = MainWindow.MWindow.PlayerActualState.TopRanks[0].PP - MainWindow.MWindow.PlayerPreviousState.TopRanks[0].PP;
@@ -865,6 +1175,11 @@ namespace osu_Profile.Forms
                         ppDif = MainWindow.MWindow.PlayerActualState.PP - MainWindow.MWindow.PlayerFirstState.PP;
                         accuracyDif = MainWindow.MWindow.PlayerActualState.Accuracy - MainWindow.MWindow.PlayerFirstState.Accuracy;
                         playCountDif = MainWindow.MWindow.PlayerActualState.PlayCount - MainWindow.MWindow.PlayerFirstState.PlayCount;
+                        aCountDif = MainWindow.MWindow.PlayerActualState.RankA - MainWindow.MWindow.PlayerFirstState.RankA;
+                        sCountDif = MainWindow.MWindow.PlayerActualState.RankS - MainWindow.MWindow.PlayerFirstState.RankS;
+                        shCountDif = MainWindow.MWindow.PlayerActualState.RankSH - MainWindow.MWindow.PlayerFirstState.RankSH;
+                        ssCountDif = MainWindow.MWindow.PlayerActualState.RankSS - MainWindow.MWindow.PlayerFirstState.RankSS;
+                        sshCountDif = MainWindow.MWindow.PlayerActualState.RankSSH - MainWindow.MWindow.PlayerFirstState.RankSSH;
                         if (MainWindow.MWindow.PlayerActualState.TopRanks != null && MainWindow.MWindow.PlayerActualState.TopRanks.Length > 0)
                             if (MainWindow.MWindow.PlayerFirstState.TopRanks != null && MainWindow.MWindow.PlayerFirstState.TopRanks.Length > 0)
                                 topPPDif = MainWindow.MWindow.PlayerActualState.TopRanks[0].PP - MainWindow.MWindow.PlayerFirstState.TopRanks[0].PP;
@@ -880,6 +1195,11 @@ namespace osu_Profile.Forms
                     MainWindow.MWindow.AccuracyChange = accuracyDif.ToString("#,#0.#####", CultureInfo.InvariantCulture);
                     MainWindow.MWindow.PlayCountChange = playCountDif.ToString("#,#", CultureInfo.InvariantCulture);
                     MainWindow.MWindow.TopPPChange = topPPDif.ToString("#,#0.#####", CultureInfo.InvariantCulture);
+                    MainWindow.MWindow.RankAChange = aCountDif.ToString("#,#", CultureInfo.InvariantCulture);
+                    MainWindow.MWindow.RankSChange = sCountDif.ToString("#,#", CultureInfo.InvariantCulture);
+                    MainWindow.MWindow.RankSHChange = shCountDif.ToString("#,#", CultureInfo.InvariantCulture);
+                    MainWindow.MWindow.RankSSChange = ssCountDif.ToString("#,#", CultureInfo.InvariantCulture);
+                    MainWindow.MWindow.RankSSHChange = sshCountDif.ToString("#,#", CultureInfo.InvariantCulture);
 
 
                     if (ppDif > 0)
@@ -973,6 +1293,56 @@ namespace osu_Profile.Forms
                     {
                         MainWindow.MWindow.TopPPChangeBox.Foreground = new SolidColorBrush(Colors.Red);
                     }
+
+                    if (aCountDif > 0)
+                    {
+                        MainWindow.MWindow.RankAChange = "+" + MainWindow.MWindow.RankAChange;
+                        MainWindow.MWindow.RankAChangeBox.Foreground = new SolidColorBrush(Colors.Green);
+                    }
+                    else
+                    {
+                        MainWindow.MWindow.RankAChangeBox.Foreground = new SolidColorBrush(Colors.Red);
+                    }
+
+                    if (sCountDif > 0)
+                    {
+                        MainWindow.MWindow.RankSChange = "+" + MainWindow.MWindow.RankSChange;
+                        MainWindow.MWindow.RankSChangeBox.Foreground = new SolidColorBrush(Colors.Green);
+                    }
+                    else
+                    {
+                        MainWindow.MWindow.RankSChangeBox.Foreground = new SolidColorBrush(Colors.Red);
+                    }
+
+                    if (shCountDif > 0)
+                    {
+                        MainWindow.MWindow.RankSHChange = "+" + MainWindow.MWindow.RankSHChange;
+                        MainWindow.MWindow.RankSHChangeBox.Foreground = new SolidColorBrush(Colors.Green);
+                    }
+                    else
+                    {
+                        MainWindow.MWindow.RankSHChangeBox.Foreground = new SolidColorBrush(Colors.Red);
+                    }
+
+                    if (ssCountDif > 0)
+                    {
+                        MainWindow.MWindow.RankSSChange = "+" + MainWindow.MWindow.RankSSChange;
+                        MainWindow.MWindow.RankSSChangeBox.Foreground = new SolidColorBrush(Colors.Green);
+                    }
+                    else
+                    {
+                        MainWindow.MWindow.RankSSChangeBox.Foreground = new SolidColorBrush(Colors.Red);
+                    }
+
+                    if (sshCountDif > 0)
+                    {
+                        MainWindow.MWindow.RankSSHChange = "+" + MainWindow.MWindow.RankSSHChange;
+                        MainWindow.MWindow.RankSSHChangeBox.Foreground = new SolidColorBrush(Colors.Green);
+                    }
+                    else
+                    {
+                        MainWindow.MWindow.RankSSHChangeBox.Foreground = new SolidColorBrush(Colors.Red);
+                    }
                 }));
             }
             else
@@ -986,6 +1356,11 @@ namespace osu_Profile.Forms
                 MainWindow.MWindow.Accuracy = "";
                 MainWindow.MWindow.PlayCount = "";
                 MainWindow.MWindow.TopPP = "";
+                MainWindow.MWindow.RankA = "";
+                MainWindow.MWindow.RankS = "";
+                MainWindow.MWindow.RankSH = "";
+                MainWindow.MWindow.RankSS = "";
+                MainWindow.MWindow.RankSSH = "";
 
                 MainWindow.MWindow.RankedScoreChange = "";
                 MainWindow.MWindow.LevelChange = "";
@@ -996,6 +1371,11 @@ namespace osu_Profile.Forms
                 MainWindow.MWindow.AccuracyChange = "";
                 MainWindow.MWindow.PlayCountChange = "";
                 MainWindow.MWindow.TopPPChange = "";
+                MainWindow.MWindow.RankAChange = "";
+                MainWindow.MWindow.RankSChange = "";
+                MainWindow.MWindow.RankSHChange = "";
+                MainWindow.MWindow.RankSSChange = "";
+                MainWindow.MWindow.RankSSHChange = "";
             }
         }
 
@@ -1302,6 +1682,11 @@ namespace osu_Profile.Forms
                                 output = output.Replace("[/a]", MainWindow.MWindow.Accuracy);
                                 output = output.Replace("[/pc]", MainWindow.MWindow.PlayCount);
                                 output = output.Replace("[/toppp]", MainWindow.MWindow.TopPP);
+                                output = output.Replace("[ra]", MainWindow.MWindow.RankA);
+                                output = output.Replace("[rs]", MainWindow.MWindow.RankS);
+                                output = output.Replace("[rsh]", MainWindow.MWindow.RankSH);
+                                output = output.Replace("[rss]", MainWindow.MWindow.RankSS);
+                                output = output.Replace("[rssh]", MainWindow.MWindow.RankSSH);
 
                                 output = output.Replace("[/rsc]", MainWindow.MWindow.RankedScoreChange);
                                 output = output.Replace("[/tsc]", MainWindow.MWindow.TotalScoreChange);
@@ -1312,6 +1697,11 @@ namespace osu_Profile.Forms
                                 output = output.Replace("[/ac]", MainWindow.MWindow.AccuracyChange);
                                 output = output.Replace("[/pcc]", MainWindow.MWindow.PlayCountChange);
                                 output = output.Replace("[/topppc]", MainWindow.MWindow.TopPPChange);
+                                output = output.Replace("[rac]", MainWindow.MWindow.RankAChange);
+                                output = output.Replace("[rsc]", MainWindow.MWindow.RankSChange);
+                                output = output.Replace("[rshc]", MainWindow.MWindow.RankSHChange);
+                                output = output.Replace("[rssc]", MainWindow.MWindow.RankSSChange);
+                                output = output.Replace("[rsshc]", MainWindow.MWindow.RankSSHChange);
 
                                 if (lastplayedbeatmaps.Count > 0)
                                 {

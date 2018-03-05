@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:OP="clr-namespace:osu_Profile.Forms"
-        Title="Osu!Profile" WindowStyle="None" ResizeMode="CanMinimize" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" ShowTitleBar="True" ShowIconOnTitleBar="False" Loaded="MetroWindow_Loaded" Name="window" Height="360" Width="413">
+        Title="Osu!Profile" WindowStyle="None" ResizeMode="CanMinimize" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" ShowTitleBar="True" ShowIconOnTitleBar="False" Loaded="MetroWindow_Loaded" Name="window" Height="520" Width="413">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -47,6 +47,21 @@
                     <Label x:Name="countryrankLab" Content="Country Rank" Canvas.Top="138" Canvas.Left="0" />
                     <TextBox x:Name="countryrankbox" Height="23" Canvas.Left="112" TextWrapping="Wrap" Text="" Canvas.Top="138" Width="162" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Right" IsReadOnly="True" />
                     <TextBox x:Name="countryrankchangebox" Height="23" Canvas.Left="279" TextWrapping="Wrap" Text="" Canvas.Top="138" Width="100" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Left" IsReadOnly="True" />
+                    <Label x:Name="rankALab" Content="Rank A" Canvas.Top="293" Canvas.Left="0" />
+                    <TextBox x:Name="rankAbox" Height="23" Canvas.Left="112" TextWrapping="Wrap" Text="" Canvas.Top="294" Width="162" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Right" IsReadOnly="True" />
+                    <TextBox x:Name="rankAchangebox" Height="23" Canvas.Left="279" TextWrapping="Wrap" Text="" Canvas.Top="294" Width="100" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Left" IsReadOnly="True" />
+                    <Label x:Name="rankSLab" Content="Rank S" Canvas.Top="324" Canvas.Left="0" />
+                    <TextBox x:Name="rankSbox" Height="23" Canvas.Left="112" TextWrapping="Wrap" Text="" Canvas.Top="325" Width="162" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Right" IsReadOnly="True" />
+                    <TextBox x:Name="rankSchangebox" Height="23" Canvas.Left="279" TextWrapping="Wrap" Text="" Canvas.Top="325" Width="100" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Left" IsReadOnly="True" />
+                    <Label x:Name="rankSHLab" Content="Rank SH" Canvas.Top="355" Canvas.Left="0" />
+                    <TextBox x:Name="rankSHbox" Height="23" Canvas.Left="112" TextWrapping="Wrap" Text="" Canvas.Top="356" Width="162" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Right" IsReadOnly="True" />
+                    <TextBox x:Name="rankSHchangebox" Height="23" Canvas.Left="279" TextWrapping="Wrap" Text="" Canvas.Top="356" Width="100" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Left" IsReadOnly="True" />
+                    <Label x:Name="rankSSLab" Content="Rank SS" Canvas.Top="386" Canvas.Left="0" />
+                    <TextBox x:Name="rankSSbox" Height="23" Canvas.Left="112" TextWrapping="Wrap" Text="" Canvas.Top="387" Width="162" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Right" IsReadOnly="True" />
+                    <TextBox x:Name="rankSSchangebox" Height="23" Canvas.Left="279" TextWrapping="Wrap" Text="" Canvas.Top="387" Width="100" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Left" IsReadOnly="True" />
+                    <Label x:Name="rankSSHLab" Content="Rank SSH" Canvas.Top="417" Canvas.Left="0" />
+                    <TextBox x:Name="rankSSHbox" Height="23" Canvas.Left="112" TextWrapping="Wrap" Text="" Canvas.Top="418" Width="162" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Right" IsReadOnly="True" />
+                    <TextBox x:Name="rankSSHchangebox" Height="23" Canvas.Left="279" TextWrapping="Wrap" Text="" Canvas.Top="418" Width="100" IsEnabled="True" AllowDrop="False" Focusable="False" TextAlignment="Left" IsReadOnly="True" />
                 </Canvas>
             </TabItem>
             <TabItem Header="Play" HorizontalAlignment="Left" VerticalAlignment="Top">
