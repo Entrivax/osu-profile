@@ -1682,11 +1682,11 @@ namespace osu_Profile.Forms
                                 output = output.Replace("[/a]", MainWindow.MWindow.Accuracy);
                                 output = output.Replace("[/pc]", MainWindow.MWindow.PlayCount);
                                 output = output.Replace("[/toppp]", MainWindow.MWindow.TopPP);
-                                output = output.Replace("[ra]", MainWindow.MWindow.RankA);
-                                output = output.Replace("[rs]", MainWindow.MWindow.RankS);
-                                output = output.Replace("[rsh]", MainWindow.MWindow.RankSH);
-                                output = output.Replace("[rss]", MainWindow.MWindow.RankSS);
-                                output = output.Replace("[rssh]", MainWindow.MWindow.RankSSH);
+                                output = output.Replace("[/ra]", MainWindow.MWindow.RankA);
+                                output = output.Replace("[/rs]", MainWindow.MWindow.RankS);
+                                output = output.Replace("[/rsh]", MainWindow.MWindow.RankSH);
+                                output = output.Replace("[/rss]", MainWindow.MWindow.RankSS);
+                                output = output.Replace("[/rssh]", MainWindow.MWindow.RankSSH);
 
                                 output = output.Replace("[/rsc]", MainWindow.MWindow.RankedScoreChange);
                                 output = output.Replace("[/tsc]", MainWindow.MWindow.TotalScoreChange);
@@ -1697,11 +1697,11 @@ namespace osu_Profile.Forms
                                 output = output.Replace("[/ac]", MainWindow.MWindow.AccuracyChange);
                                 output = output.Replace("[/pcc]", MainWindow.MWindow.PlayCountChange);
                                 output = output.Replace("[/topppc]", MainWindow.MWindow.TopPPChange);
-                                output = output.Replace("[rac]", MainWindow.MWindow.RankAChange);
-                                output = output.Replace("[rsc]", MainWindow.MWindow.RankSChange);
-                                output = output.Replace("[rshc]", MainWindow.MWindow.RankSHChange);
-                                output = output.Replace("[rssc]", MainWindow.MWindow.RankSSChange);
-                                output = output.Replace("[rsshc]", MainWindow.MWindow.RankSSHChange);
+                                output = output.Replace("[/rac]", MainWindow.MWindow.RankAChange);
+                                output = output.Replace("[/rsc]", MainWindow.MWindow.RankSChange);
+                                output = output.Replace("[/rshc]", MainWindow.MWindow.RankSHChange);
+                                output = output.Replace("[/rssc]", MainWindow.MWindow.RankSSChange);
+                                output = output.Replace("[/rsshc]", MainWindow.MWindow.RankSSHChange);
 
                                 if (lastplayedbeatmaps.Count > 0)
                                 {
